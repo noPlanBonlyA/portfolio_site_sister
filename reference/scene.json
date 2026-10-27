@@ -1,0 +1,694 @@
+{
+  "_readme": "CSS units come from the CSS-3D prototype (x right, y DOWN, z toward viewer, floor at y=300, eye at y=0, perspective 900px on a 1440x900 viewport => vertical FOV 53.13deg). three = (x/100, (300-y)/100, z/100), floor at y=0, 1 unit ~ 1 m-ish. three rotationY = -css yaw; rotationX = css pitch (negative = look down). Props are upright billboards (transparent cut-outs) standing on the floor; basePosition = bottom-center.",
+  "camera": {
+    "fovDeg": 53.13,
+    "poses": {
+      "title": {
+        "css": {
+          "pos": [
+            9.0,
+            -710.0,
+            -2300.0
+          ],
+          "pitchDeg": 0.0,
+          "yawDeg": 0.0
+        },
+        "three": {
+          "position": [
+            0.09,
+            10.1,
+            -23.0
+          ],
+          "rotationYDeg": -0.0,
+          "rotationXDeg": 0.0
+        }
+      },
+      "set": {
+        "css": {
+          "pos": [
+            -60.0,
+            -90.0,
+            900.0
+          ],
+          "pitchDeg": 0.0,
+          "yawDeg": 0.0
+        },
+        "three": {
+          "position": [
+            -0.6,
+            3.9,
+            9.0
+          ],
+          "rotationYDeg": -0.0,
+          "rotationXDeg": 0.0
+        }
+      },
+      "turn-about": {
+        "css": {
+          "pos": [
+            -60.0,
+            -90.0,
+            900.0
+          ],
+          "pitchDeg": 0.0,
+          "yawDeg": 19.9
+        },
+        "three": {
+          "position": [
+            -0.6,
+            3.9,
+            9.0
+          ],
+          "rotationYDeg": -19.9,
+          "rotationXDeg": 0.0
+        }
+      },
+      "turn-contact": {
+        "css": {
+          "pos": [
+            -60.0,
+            -90.0,
+            900.0
+          ],
+          "pitchDeg": 0.0,
+          "yawDeg": 31.0
+        },
+        "three": {
+          "position": [
+            -0.6,
+            3.9,
+            9.0
+          ],
+          "rotationYDeg": -31.0,
+          "rotationXDeg": 0.0
+        }
+      },
+      "turn-showreel": {
+        "css": {
+          "pos": [
+            -60.0,
+            -90.0,
+            900.0
+          ],
+          "pitchDeg": 0.0,
+          "yawDeg": 2.8
+        },
+        "three": {
+          "position": [
+            -0.6,
+            3.9,
+            9.0
+          ],
+          "rotationYDeg": -2.8,
+          "rotationXDeg": 0.0
+        }
+      },
+      "turn-projects": {
+        "css": {
+          "pos": [
+            -60.0,
+            -90.0,
+            900.0
+          ],
+          "pitchDeg": 0.0,
+          "yawDeg": -4.1
+        },
+        "three": {
+          "position": [
+            -0.6,
+            3.9,
+            9.0
+          ],
+          "rotationYDeg": 4.1,
+          "rotationXDeg": 0.0
+        }
+      },
+      "turn-portfolio": {
+        "css": {
+          "pos": [
+            -60.0,
+            -90.0,
+            900.0
+          ],
+          "pitchDeg": 0.0,
+          "yawDeg": -25.5
+        },
+        "three": {
+          "position": [
+            -0.6,
+            3.9,
+            9.0
+          ],
+          "rotationYDeg": 25.5,
+          "rotationXDeg": 0.0
+        }
+      },
+      "about": {
+        "css": {
+          "pos": [
+            666.0,
+            -20.0,
+            400.0
+          ],
+          "pitchDeg": 0.0,
+          "yawDeg": 4.0
+        },
+        "three": {
+          "position": [
+            6.66,
+            3.2,
+            4.0
+          ],
+          "rotationYDeg": -4.0,
+          "rotationXDeg": 0.0
+        }
+      },
+      "contact": {
+        "css": {
+          "pos": [
+            650.0,
+            -30.0,
+            -0.0
+          ],
+          "pitchDeg": 0.0,
+          "yawDeg": -4.0
+        },
+        "three": {
+          "position": [
+            6.5,
+            3.3,
+            -0.0
+          ],
+          "rotationYDeg": 4.0,
+          "rotationXDeg": 0.0
+        }
+      },
+      "showreel": {
+        "css": {
+          "pos": [
+            89.0,
+            -170.0,
+            -200.0
+          ],
+          "pitchDeg": 0.0,
+          "yawDeg": 0.0
+        },
+        "three": {
+          "position": [
+            0.89,
+            4.7,
+            -2.0
+          ],
+          "rotationYDeg": -0.0,
+          "rotationXDeg": 0.0
+        }
+      },
+      "projects": {
+        "css": {
+          "pos": [
+            150.0,
+            -0.0,
+            -0.0
+          ],
+          "pitchDeg": -8.0,
+          "yawDeg": 4.0
+        },
+        "three": {
+          "position": [
+            1.5,
+            3.0,
+            -0.0
+          ],
+          "rotationYDeg": -4.0,
+          "rotationXDeg": -8.0
+        }
+      },
+      "portfolio": {
+        "css": {
+          "pos": [
+            -476.0,
+            -60.0,
+            500.0
+          ],
+          "pitchDeg": -8.0,
+          "yawDeg": 0.0
+        },
+        "three": {
+          "position": [
+            -4.76,
+            3.6,
+            5.0
+          ],
+          "rotationYDeg": -0.0,
+          "rotationXDeg": -8.0
+        }
+      },
+      "backstage": {
+        "css": {
+          "pos": [
+            -863.0,
+            -160.0,
+            200.0
+          ],
+          "pitchDeg": 0.0,
+          "yawDeg": 0.0
+        },
+        "three": {
+          "position": [
+            -8.63,
+            4.6,
+            2.0
+          ],
+          "rotationYDeg": -0.0,
+          "rotationXDeg": 0.0
+        }
+      },
+      "turn-backstage": {
+        "css": {
+          "pos": [
+            -60.0,
+            -90.0,
+            900.0
+          ],
+          "pitchDeg": 0.0,
+          "yawDeg": -29.8
+        },
+        "three": {
+          "position": [
+            -0.6,
+            3.9,
+            9.0
+          ],
+          "rotationYDeg": 29.8,
+          "rotationXDeg": 0.0
+        }
+      },
+      "wardrobe": {
+        "css": {
+          "pos": [
+            -265.0,
+            -0.0,
+            -1000.0
+          ],
+          "pitchDeg": 0.0,
+          "yawDeg": 0.0
+        },
+        "three": {
+          "position": [
+            -2.65,
+            3.0,
+            -10.0
+          ],
+          "rotationYDeg": -0.0,
+          "rotationXDeg": 0.0
+        }
+      },
+      "turn-wardrobe": {
+        "css": {
+          "pos": [
+            -60.0,
+            -90.0,
+            900.0
+          ],
+          "pitchDeg": 0.0,
+          "yawDeg": -11.6
+        },
+        "three": {
+          "position": [
+            -0.6,
+            3.9,
+            9.0
+          ],
+          "rotationYDeg": 11.6,
+          "rotationXDeg": 0.0
+        }
+      },
+      "action": {
+        "css": {
+          "pos": [
+            9.0,
+            -900.0,
+            -300.0
+          ],
+          "pitchDeg": 0.0,
+          "yawDeg": 0.0
+        },
+        "three": {
+          "position": [
+            0.09,
+            12.0,
+            -3.0
+          ],
+          "rotationYDeg": -0.0,
+          "rotationXDeg": 0.0
+        }
+      },
+      "breathe": {
+        "css": {
+          "pos": [
+            9.0,
+            -750.0,
+            -1300.0
+          ],
+          "pitchDeg": 0.0,
+          "yawDeg": 0.0
+        },
+        "three": {
+          "position": [
+            0.09,
+            10.5,
+            -13.0
+          ],
+          "rotationYDeg": -0.0,
+          "rotationXDeg": 0.0
+        }
+      }
+    }
+  },
+  "backdrop": {
+    "image": "plate2",
+    "cssRect": {
+      "x": -3800,
+      "y": -2803,
+      "z": -3400,
+      "width": 7600,
+      "height": 3103,
+      "imageHeight": 4275,
+      "note": "image 7600x4275 css px, top-left at (x,y); only the top 3103px (above the floor line) is used; floor line is the plate horizon at y=300"
+    },
+    "screen": {
+      "cssRect": {
+        "x": -1267,
+        "y": -1283,
+        "z": -3396,
+        "width": 2552,
+        "height": 1146
+      },
+      "video": "hero-bw.mp4 / hero-color.mp4"
+    },
+    "archGlowRect": {
+      "x": -2027,
+      "y": -1853,
+      "z": -3390,
+      "width": 4180,
+      "height": 1868
+    }
+  },
+  "floor": {
+    "cssRect": {
+      "x": -3800,
+      "zFar": -3400,
+      "width": 7600,
+      "depth": 4800
+    }
+  },
+  "sideWalls": {
+    "xLeft": -3900,
+    "xRight": 3900,
+    "cssTop": -2600,
+    "height": 2900,
+    "zFrom": -3400,
+    "zTo": 1400
+  },
+  "actorsMark": {
+    "cssCenter": [
+      -297,
+      300,
+      -1600
+    ],
+    "note": "white T of gaffer tape in a pool of light"
+  },
+  "dollyTrack": {
+    "cssX": -446,
+    "cssWidth": 1071,
+    "cssZ": [
+      -945,
+      -865
+    ]
+  },
+  "props": [
+    {
+      "image": "rack",
+      "clickable": true,
+      "action": "goWardrobe",
+      "label": "Wardrobe — the costume rack",
+      "centerX": -595.0,
+      "bottomY": 300,
+      "z": -1700,
+      "width": 412,
+      "height": 560,
+      "three": {
+        "basePosition": [
+          -5.95,
+          0,
+          -17.0
+        ],
+        "size": [
+          4.12,
+          5.6
+        ]
+      }
+    },
+    {
+      "image": "spot",
+      "clickable": false,
+      "action": null,
+      "label": null,
+      "centerX": 1130.5,
+      "bottomY": 300,
+      "z": -1800,
+      "width": 403,
+      "height": 640,
+      "three": {
+        "basePosition": [
+          11.305,
+          0,
+          -18.0
+        ],
+        "size": [
+          4.03,
+          6.4
+        ]
+      }
+    },
+    {
+      "image": "light",
+      "clickable": false,
+      "action": null,
+      "label": null,
+      "centerX": -952.0,
+      "bottomY": 300,
+      "z": -1300,
+      "width": 266,
+      "height": 640,
+      "three": {
+        "basePosition": [
+          -9.52,
+          0,
+          -13.0
+        ],
+        "size": [
+          2.66,
+          6.4
+        ]
+      }
+    },
+    {
+      "image": "dolly",
+      "clickable": true,
+      "action": "goShowreel",
+      "label": "Showreel — the camera dolly",
+      "centerX": 88.5,
+      "bottomY": 300,
+      "z": -900,
+      "width": 545,
+      "height": 600,
+      "three": {
+        "basePosition": [
+          0.885,
+          0,
+          -9.0
+        ],
+        "size": [
+          5.45,
+          6.0
+        ]
+      }
+    },
+    {
+      "image": "clap",
+      "clickable": true,
+      "action": "clapClick",
+      "label": "Projects — the clapperboard",
+      "centerX": -119.0,
+      "bottomY": 300,
+      "z": -780,
+      "width": 216,
+      "height": 230,
+      "three": {
+        "basePosition": [
+          -1.19,
+          0,
+          -7.8
+        ],
+        "size": [
+          2.16,
+          2.3
+        ]
+      }
+    },
+    {
+      "image": "chair",
+      "clickable": true,
+      "action": "goAbout",
+      "label": "About — the director’s chair",
+      "centerX": 416.5,
+      "bottomY": 300,
+      "z": -250,
+      "width": 289,
+      "height": 470,
+      "three": {
+        "basePosition": [
+          4.165,
+          0,
+          -2.5
+        ],
+        "size": [
+          2.89,
+          4.7
+        ]
+      }
+    },
+    {
+      "image": "vanity",
+      "clickable": true,
+      "action": "goBackstage",
+      "label": "Backstage — the dressing mirror",
+      "centerX": -863.0,
+      "bottomY": 300,
+      "z": -500,
+      "width": 322,
+      "height": 660,
+      "three": {
+        "basePosition": [
+          -8.63,
+          0,
+          -5.0
+        ],
+        "size": [
+          3.22,
+          6.6
+        ]
+      }
+    },
+    {
+      "image": "cart",
+      "clickable": true,
+      "action": "goPortfolio",
+      "label": "Portfolio — the film cart",
+      "centerX": -476.0,
+      "bottomY": 300,
+      "z": -100,
+      "width": 366,
+      "height": 440,
+      "three": {
+        "basePosition": [
+          -4.76,
+          0,
+          -1.0
+        ],
+        "size": [
+          3.66,
+          4.4
+        ]
+      }
+    },
+    {
+      "image": "callsheet",
+      "clickable": true,
+      "action": "goContact",
+      "label": "Contacts — the call sheet",
+      "centerX": 900.0,
+      "bottomY": 300,
+      "z": -700,
+      "width": 264,
+      "height": 330,
+      "three": {
+        "basePosition": [
+          9.0,
+          0,
+          -7.0
+        ],
+        "size": [
+          2.64,
+          3.3
+        ]
+      }
+    }
+  ],
+  "labels": [
+    {
+      "text": "03 · Showreel",
+      "anchor": [
+        89,
+        -330,
+        -900
+      ],
+      "fontSizeWorld": 40
+    },
+    {
+      "text": "04 · Projects",
+      "anchor": [
+        -119,
+        40,
+        -780
+      ],
+      "fontSizeWorld": 39
+    },
+    {
+      "text": "01 · About me",
+      "anchor": [
+        416,
+        -200,
+        -250
+      ],
+      "fontSizeWorld": 30
+    },
+    {
+      "text": "05 · Contacts",
+      "anchor": [
+        900,
+        -60,
+        -700
+      ],
+      "fontSizeWorld": 25
+    },
+    {
+      "text": "02 · Portfolio",
+      "anchor": [
+        -476,
+        -170,
+        -100
+      ],
+      "fontSizeWorld": 28
+    },
+    {
+      "text": "06 · Backstage",
+      "anchor": [
+        -863,
+        -390,
+        -500
+      ],
+      "fontSizeWorld": 30
+    },
+    {
+      "text": "07 · Wardrobe",
+      "anchor": [
+        -595,
+        -300,
+        -1700
+      ],
+      "fontSizeWorld": 48
+    }
+  ]
+}

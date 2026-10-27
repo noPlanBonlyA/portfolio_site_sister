@@ -1,0 +1,975 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Mariia Dmitrieva — The Studio</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&amp;family=Courier+Prime:wght@400;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=Inter:ital,wght@0,400;0,500;0,600;1,500&amp;family=Permanent+Marker&amp;display=swap">
+<style>
+body{margin:0;background:#050505}
+a{color:#f2f2f2}a:hover{color:#ffffff}
+.root{--acc:#ffffff;--rec:#ffffff;--sub:#ffffff;position:relative;width:1440px;height:900px;overflow:hidden;background:#050505;color:#ececec;font-family:'Inter',system-ui,sans-serif}
+.t-color{--acc:#f2b36b;--rec:#ff4d4d;--sub:#f7e27a}
+.stage{position:absolute;inset:0;overflow:hidden;perspective:900px;perspective-origin:50% 50%}
+.sway{position:absolute;left:50%;top:50%;width:0;height:0;transform-style:preserve-3d;transform-origin:0 0 900px;transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+.bob{position:absolute;left:0;top:0;transform-style:preserve-3d}
+.walking .bob{animation:walk .6s ease-in-out 4 alternate}
+@keyframes walk{0%{transform:translate3d(0,0,0) rotateZ(0deg)}50%{transform:translate3d(0,-7px,0) rotateZ(.25deg)}100%{transform:translate3d(0,2px,0) rotateZ(-.25deg)}}
+.scene{position:absolute;left:0;top:0;transform-style:preserve-3d;will-change:transform;transition:transform 2.2s cubic-bezier(.45,0,.22,1)}
+.turning .scene{transition:transform .9s cubic-bezier(.4,0,.3,1)}
+.v-set .scene{transition-duration:2s}
+.cam-title{transform:translateZ(900px) rotateX(0deg) rotateY(0deg) translate3d(-9px,710px,2300px)}
+.cam-set{transform:translateZ(900px) rotateX(0deg) rotateY(0deg) translate3d(60px,90px,-900px)}
+.cam-turn-about{transform:translateZ(900px) rotateX(0deg) rotateY(19.9deg) translate3d(60px,90px,-900px)}
+.cam-turn-contact{transform:translateZ(900px) rotateX(0deg) rotateY(31deg) translate3d(60px,90px,-900px)}
+.cam-turn-showreel{transform:translateZ(900px) rotateX(0deg) rotateY(2.8deg) translate3d(60px,90px,-900px)}
+.cam-turn-projects{transform:translateZ(900px) rotateX(0deg) rotateY(-4.1deg) translate3d(60px,90px,-900px)}
+.cam-turn-portfolio{transform:translateZ(900px) rotateX(0deg) rotateY(-25.5deg) translate3d(60px,90px,-900px)}
+.cam-about{transform:translateZ(900px) rotateX(0deg) rotateY(4deg) translate3d(-666px,20px,-400px)}
+.cam-contact{transform:translateZ(900px) rotateX(0deg) rotateY(-4deg) translate3d(-650px,30px,0px)}
+.cam-showreel{transform:translateZ(900px) rotateX(0deg) rotateY(0deg) translate3d(-89px,170px,200px)}
+.cam-projects{transform:translateZ(900px) rotateX(-8deg) rotateY(4deg) translate3d(-150px,0px,0px)}
+.cam-portfolio{transform:translateZ(900px) rotateX(-8deg) rotateY(0deg) translate3d(476px,60px,-500px)}
+.e{position:absolute;left:0;top:0;transform-origin:0 0}
+.flat{transform-origin:50% 0}
+.floor{background:radial-gradient(ellipse 1300px 900px at 50% 4%,rgba(255,200,140,.16),rgba(0,0,0,0) 70%),radial-gradient(ellipse 500px 1400px at 31% 20%,rgba(255,190,120,.08),rgba(0,0,0,0) 70%),radial-gradient(ellipse 500px 1400px at 69% 20%,rgba(255,190,120,.08),rgba(0,0,0,0) 70%),repeating-linear-gradient(90deg,rgba(255,255,255,.035) 0 2px,rgba(0,0,0,0) 2px 600px),repeating-linear-gradient(0deg,rgba(255,255,255,.03) 0 2px,rgba(0,0,0,0) 2px 600px),linear-gradient(#1a1511,#0c0a08 40%,#060505)}
+.wall{background:linear-gradient(180deg,rgba(0,0,0,.9),rgba(0,0,0,.2) 40%,rgba(0,0,0,.2) 80%,rgba(0,0,0,.95)),repeating-linear-gradient(90deg,#0d0c0b 0 300px,#151311 300px 306px)}
+.screen3d{background:#000;overflow:hidden}
+.screen3d video{width:100%;height:100%;object-fit:cover;display:block}
+.shadow3d{border-radius:50%;background:radial-gradient(closest-side,rgba(0,0,0,.85),rgba(0,0,0,0))}
+.pool{border-radius:50%;background:radial-gradient(closest-side,rgba(255,226,180,.34),rgba(255,226,180,0));opacity:0;transition:opacity 1.2s ease .9s}
+.t-bw .pool{background:radial-gradient(closest-side,rgba(255,255,255,.3),rgba(255,255,255,0))}
+.v-about .pool-about,.v-contact .pool-contact,.v-projects .pool-projects,.v-showreel .pool-showreel,.v-portfolio .pool-portfolio{opacity:1}
+.markpool{border-radius:50%;background:radial-gradient(closest-side,rgba(255,226,180,.28),rgba(255,226,180,0))}
+.t-bw .markpool{background:radial-gradient(closest-side,rgba(255,255,255,.24),rgba(255,255,255,0))}
+.prop{display:block;background:none;border:0;padding:0;margin:0;cursor:pointer;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.prop img{width:100%;height:100%;display:block;object-fit:contain;pointer-events:none}
+.prop:hover{transform:translate3d(0,-10px,0)}
+.prop:focus-visible{outline:2px dashed #fff;outline-offset:8px}
+.root:not(.is-set) .prop{pointer-events:none}
+.deco img{width:100%;height:100%;display:block;object-fit:contain}
+.lab{pointer-events:none;transition:opacity .5s ease}
+.root:not(.is-set) .lab{opacity:0}
+.tape{position:absolute;left:0;top:0;transform:translate(-50%,-100%);display:flex;align-items:center;gap:.6em;white-space:nowrap}
+.tape span{font-family:'Permanent Marker',cursive;line-height:1;color:#161616;background:#ebe5d5;padding:.5em .9em .45em;transform:rotate(-2deg);clip-path:polygon(0 6%,4% 0,9% 5%,15% 0,22% 4%,30% 0,38% 5%,46% 0,54% 4%,62% 0,70% 5%,78% 0,86% 4%,93% 0,100% 6%,98% 50%,100% 94%,94% 100%,87% 95%,80% 100%,72% 96%,64% 100%,56% 95%,48% 100%,40% 96%,32% 100%,24% 95%,16% 100%,8% 96%,2% 100%,0 94%,2% 50%)}
+.tape i{width:.6em;height:.6em;border-radius:50%;background:var(--acc);box-shadow:0 0 0 .35em rgba(255,255,255,.18)}
+.tape.soon span{background:#2a2622;color:#d9d2c2}
+.shade{position:absolute;inset:0;background:#030303;opacity:0;pointer-events:none;z-index:3;transition:opacity 1.2s ease}
+.v-portfolio .shade{opacity:.72}
+.v-showreel .shade{opacity:.55}
+.haze{position:absolute;z-index:2;left:-300px;top:40px;width:2040px;height:700px;pointer-events:none;opacity:.5;background:radial-gradient(30% 40% at 30% 50%,rgba(255,240,220,.07),rgba(255,255,255,0)),radial-gradient(28% 36% at 70% 42%,rgba(255,240,220,.06),rgba(255,255,255,0));animation:haze 30s ease-in-out infinite alternate}
+@keyframes haze{from{transform:translate3d(-60px,0,0)}to{transform:translate3d(80px,0,0)}}
+.torch{position:absolute;left:-900px;top:-900px;width:1800px;height:1800px;z-index:2;pointer-events:none;border-radius:50%;background:radial-gradient(closest-side,rgba(255,214,160,.10),rgba(255,214,160,0) 60%);opacity:0;transition:opacity .8s ease}
+.t-bw .torch{background:radial-gradient(closest-side,rgba(255,255,255,.08),rgba(255,255,255,0) 60%)}
+.is-set .torch{opacity:1}
+.cur{position:absolute;left:-28px;top:-28px;width:56px;height:56px;z-index:20;pointer-events:none;opacity:0;transition:opacity .3s ease}
+.is-set .cur{opacity:1}
+.cur::before{content:'';position:absolute;inset:0;border:1px solid rgba(255,255,255,.7);border-radius:50%;transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+.cur.hot::before{transform:scale(1.5);border-color:var(--acc)}
+.cur b{position:absolute;left:46px;top:20px;white-space:nowrap;font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:.18em;text-transform:uppercase;color:#fff;opacity:0;transform:translateX(-6px);transition:all .3s ease}
+.cur.hot b{opacity:1;transform:none}
+.grain{position:absolute;inset:-60px;pointer-events:none;z-index:16;opacity:.07;background-image:url(/_blob/c5e4a137fba1c0874fe04e50c4d20b17);animation:grain .6s steps(3) infinite}
+@keyframes grain{0%{transform:translate3d(0,0,0)}33%{transform:translate3d(-23px,17px,0)}66%{transform:translate3d(19px,-29px,0)}100%{transform:translate3d(-11px,9px,0)}}
+.vignette{position:absolute;inset:0;pointer-events:none;z-index:4;background:radial-gradient(ellipse at 50% 46%,rgba(0,0,0,0) 50%,rgba(0,0,0,.72) 100%)}
+.lbar{position:absolute;left:0;width:1440px;height:72px;background:#000;z-index:6;transform:scaleY(0);transition:transform 1.3s cubic-bezier(.66,0,.18,1)}
+.lbar-t{top:0;transform-origin:50% 0}
+.lbar-b{bottom:0;transform-origin:50% 100%}
+.v-title .lbar{transform:scaleY(1)}
+.flash{position:absolute;inset:0;z-index:18;pointer-events:none;background:#fff;animation:flash .5s ease-out both}
+@keyframes flash{0%{opacity:.0}12%{opacity:.85}100%{opacity:0}}
+.sub{position:absolute;left:0;right:0;bottom:64px;z-index:14;text-align:center;pointer-events:none;animation:subIn .5s ease both}
+.sub span{display:inline-block;padding:8px 16px;background:rgba(0,0,0,.55);font:italic 500 20px/1.3 'Inter',sans-serif;color:var(--sub);letter-spacing:.01em}
+@keyframes subIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.leader{position:absolute;inset:0;z-index:30;background:#0b0b0b;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:34px;animation:leaderOut .7s 3.1s forwards}
+@keyframes leaderOut{to{opacity:0;visibility:hidden}}
+.ring{position:relative;width:420px;height:420px;border-radius:50%;border:2px solid #9a9a9a;overflow:hidden}
+.ring::before{content:'';position:absolute;inset:28px;border-radius:50%;border:1px solid #6a6a6a}
+.sweep{position:absolute;inset:0;background:conic-gradient(rgba(255,255,255,.16) 0 25%,rgba(255,255,255,0) 25% 100%);animation:sweep 1s linear 3}
+@keyframes sweep{to{transform:rotate(360deg)}}
+.hx{position:absolute;left:0;right:0;top:50%;height:1px;background:#6a6a6a}
+.vx{position:absolute;top:0;bottom:0;left:50%;width:1px;background:#6a6a6a}
+.num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:220px;line-height:1;color:#e8e8e8;opacity:0;animation:num 1s linear both}
+@keyframes num{0%{opacity:0}1%{opacity:1}99%{opacity:1}100%{opacity:0}}
+.skip{position:absolute;right:40px;bottom:36px;background:none;border:1px solid #555;color:#cfcfcf;cursor:pointer;border-radius:999px;padding:12px 20px;font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:.2em;text-transform:uppercase}
+.skip:hover{color:#fff;border-color:#aaa}
+.title{position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;pointer-events:none}
+.title > *{pointer-events:auto}
+.rise{animation:rise 1.4s cubic-bezier(.2,.7,.2,1) both}
+@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.name{margin:0;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:132px;line-height:.9;letter-spacing:.06em;text-transform:uppercase;color:#fff;text-shadow:0 2px 40px rgba(0,0,0,.6)}
+.slogan{margin:30px 0 0;font-size:15px;letter-spacing:.22em;text-transform:uppercase;color:#e6e6e6}
+.slogan i{display:inline-block;width:40px;height:1px;background:#9a9a9a;vertical-align:middle;margin:0 18px}
+.explore{position:absolute;bottom:110px;left:50%;margin-left:-110px;width:220px;display:flex;flex-direction:column;align-items:center;gap:14px;background:none;border:0;color:#fff;cursor:pointer;font:500 12px/1 'IBM Plex Mono',monospace;letter-spacing:.24em;text-transform:uppercase;padding:12px 0}
+.explore b{display:flex;align-items:center;justify-content:center;width:50px;height:50px;border:1px solid rgba(255,255,255,.6);border-radius:50%;animation:bob2 2.2s ease-in-out infinite;transition:background .3s}
+.explore:hover b{background:rgba(255,255,255,.14)}
+@keyframes bob2{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+.hud{position:absolute;left:0;top:0;width:1440px;height:78px;box-sizing:border-box;padding:0 40px;display:flex;align-items:center;justify-content:space-between;gap:24px;z-index:12}
+.logo{background:none;border:0;color:#fff;cursor:pointer;font-family:'Cormorant Garamond',serif;font-size:22px;letter-spacing:.14em;text-transform:uppercase;padding:10px 0}
+.navbtn{background:none;border:0;color:#c4c4c4;cursor:pointer;font:500 12px/1 'IBM Plex Mono',monospace;letter-spacing:.16em;text-transform:uppercase;padding:16px 9px;border-bottom:1px solid transparent;transition:color .3s,border-color .3s}
+.navbtn:hover{color:#fff}
+.navbtn.on{color:#fff;border-bottom-color:var(--acc)}
+.navbtn em{font-style:normal;color:#8c8c8c;margin-right:6px}
+.grade-sw{display:flex;border:1px solid #4a4a4a;border-radius:999px;padding:3px;background:rgba(0,0,0,.45)}
+.gbtn{background:none;border:0;color:#bdbdbd;cursor:pointer;border-radius:999px;padding:10px 14px;font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:.16em;text-transform:uppercase;display:flex;align-items:center;gap:8px;transition:background .35s,color .35s}
+.gbtn:hover{color:#fff}
+.gbtn.on{background:#f2f2f2;color:#0a0a0a}
+.gbtn i{width:10px;height:10px;border-radius:50%;display:inline-block}
+.sw-bw{background:linear-gradient(90deg,#111 50%,#eee 50%);border:1px solid #888}
+.sw-co{background:conic-gradient(#f2b36b,#e5484d,#6aa8f2,#7ed6a3,#f2b36b)}
+.hint{position:absolute;left:40px;bottom:32px;z-index:5;font:400 11px/1.6 'IBM Plex Mono',monospace;letter-spacing:.2em;text-transform:uppercase;color:#a8a8a8;animation:rise 1s 1.6s both}
+.tc{position:absolute;right:40px;bottom:32px;z-index:5;display:flex;align-items:center;gap:10px;font:400 11px/1.6 'IBM Plex Mono',monospace;letter-spacing:.2em;color:#a8a8a8;animation:rise 1s 1.6s both}
+.recdot{width:8px;height:8px;border-radius:50%;background:var(--rec)}
+.slate{position:absolute;left:50%;top:50%;width:440px;margin:-170px 0 0 -220px;z-index:25;pointer-events:none;animation:slate 1.25s cubic-bezier(.3,.7,.3,1) both}
+@keyframes slate{0%{opacity:0;transform:translateY(60px) rotate(2deg)}14%{opacity:1;transform:translateY(0) rotate(0)}68%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(-50px) rotate(-3deg)}}
+.stick{height:46px;box-sizing:border-box;border:3px solid #e8e8e8;background:repeating-linear-gradient(135deg,#f0f0f0 0 26px,#0d0d0d 26px 52px);transform-origin:4px 100%;animation:clap .32s cubic-bezier(.6,0,1,1) .22s both}
+@keyframes clap{from{transform:rotate(-26deg)}to{transform:rotate(0)}}
+.board{margin-top:4px;background:#0f0f0f;border:3px solid #e8e8e8;padding:22px 26px;display:flex;flex-direction:column;gap:12px;box-shadow:0 30px 80px rgba(0,0,0,.8)}
+.chalk{font-family:'Courier Prime',monospace;color:#ececec;text-transform:uppercase;letter-spacing:.16em}
+.panel{position:absolute;top:0;height:900px;box-sizing:border-box;overflow-y:auto;z-index:8;animation:panelIn 1s 1.6s both cubic-bezier(.2,.7,.2,1)}
+.panel-r{right:0;width:820px;padding:120px 80px 64px 160px;background:linear-gradient(90deg,rgba(5,5,5,0) 0%,rgba(5,5,5,.9) 20%,#050505 55%)}
+.panel-l{left:0;width:820px;padding:120px 160px 64px 80px;background:linear-gradient(270deg,rgba(5,5,5,0) 0%,rgba(5,5,5,.9) 20%,#050505 55%)}
+.panel-full{left:0;width:1440px;padding:120px 0 40px;animation-name:riseIn}
+@keyframes panelIn{from{opacity:0;transform:translateX(36px)}to{opacity:1;transform:none}}
+@keyframes riseIn{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
+.eyebrow{margin:0;font:500 12px/1 'IBM Plex Mono',monospace;letter-spacing:.24em;text-transform:uppercase;color:#a8a8a8}
+.eyebrow b{color:var(--acc);font-weight:500}
+.h2{margin:16px 0 0;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:72px;line-height:.95;color:#fff}
+.h2 em{font-style:italic;font-weight:400}
+.body{font-size:16px;line-height:1.7;color:#cfcfcf;margin:0}
+.ph{color:#9c9c9c;font-style:italic}
+.t-bw .photo{filter:grayscale(1) contrast(1.06)}
+.back{display:inline-flex;align-items:center;gap:10px;background:none;border:0;color:#d0d0d0;cursor:pointer;font:500 12px/1 'IBM Plex Mono',monospace;letter-spacing:.2em;text-transform:uppercase;padding:14px 0;transition:color .3s,gap .3s}
+.back:hover{color:#fff;gap:14px}
+.page{position:relative;background:#f1efe9;color:#161616;font-family:'Courier Prime',monospace;font-size:14px;line-height:1.55;padding:44px 52px 36px;box-shadow:0 30px 70px rgba(0,0,0,.65);transform:rotate(-.6deg)}
+.page p{margin:0 0 14px}
+.cue{margin-left:36%!important;text-transform:uppercase}
+.paren{margin-left:28%!important}
+.dlg{margin-left:16%!important;margin-right:12%!important}
+.polaroid{position:absolute;right:-36px;top:-40px;width:150px;background:#f7f6f2;padding:9px 9px 30px;box-shadow:0 14px 30px rgba(0,0,0,.5);transform:rotate(5deg)}
+.polaroid img{width:132px;height:160px;object-fit:cover;display:block}
+.ptape{position:absolute;left:46px;top:-12px;width:60px;height:22px;background:rgba(233,227,211,.85);transform:rotate(-4deg)}
+.btn{display:inline-flex;align-items:center;gap:12px;background:#f2f2f2;color:#0a0a0a;border:0;cursor:pointer;text-decoration:none;font:600 13px/1 'Inter',sans-serif;letter-spacing:.1em;text-transform:uppercase;padding:18px 26px;transition:gap .3s,background .3s}
+.btn:hover{gap:18px;background:#fff;color:#000}
+.btn-ghost{background:none;color:#f2f2f2;border:1px solid #6a6a6a}
+.btn-ghost:hover{background:rgba(255,255,255,.08);color:#fff}
+.reelbox{position:relative;background:#0b0b0b;padding:34px 0 40px;overflow:hidden;border-top:1px solid #222;border-bottom:1px solid #222}
+.sprk{position:absolute;left:0;right:0;height:12px;background:repeating-linear-gradient(90deg,transparent 0 14px,#bdbdbd 14px 28px,transparent 28px 40px);opacity:.32}
+.track{display:flex;gap:16px;width:max-content;animation:roll 46s linear infinite}
+.reelbox:hover .track{animation-play-state:paused}
+@keyframes roll{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
+.frame{flex:none;width:380px;margin:0;display:flex;flex-direction:column;gap:12px}
+.frame .pic{width:380px;height:260px;overflow:hidden;background:#141414}
+.frame img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 1.2s ease}
+.frame:hover img{filter:none;transform:scale(1.04)}
+.cap{display:flex;gap:14px;font:400 11px/1.4 'IBM Plex Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:#bdbdbd}
+.cap b{color:#7d7d7d;font-weight:500}
+.slot{width:100%;height:100%;box-sizing:border-box;border:1px dashed #444;display:flex;align-items:center;justify-content:center;font:400 12px/1.5 'IBM Plex Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:#8f8f8f;text-align:center;padding:24px}
+.sheet{max-width:1280px;margin:0 auto;padding:30px 40px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px;background:#0c0c0c;box-sizing:border-box}
+.shot{position:relative;margin:0;display:flex;flex-direction:column;gap:10px}
+.shot .pic{height:190px;overflow:hidden;background:#161616;outline:6px solid #070707}
+.shot img{width:100%;height:100%;object-fit:cover;display:block}
+.circle{position:absolute;left:-12px;top:-14px;right:-12px;height:218px;border:2.5px solid var(--acc);border-radius:48% 52% 46% 54%/55% 45% 55% 45%;transform:rotate(-3deg);pointer-events:none}
+.tab{background:none;border:1px solid #3a3a3a;color:#c4c4c4;cursor:pointer;border-radius:999px;padding:13px 20px;font:500 12px/1 'IBM Plex Mono',monospace;letter-spacing:.14em;text-transform:uppercase;transition:background .3s,color .3s,border-color .3s}
+.tab:hover{color:#fff;border-color:#8a8a8a}
+.tab.on{background:#f2f2f2;color:#0a0a0a;border-color:#f2f2f2}
+.vf{position:absolute;inset:0;z-index:8;animation:riseIn .9s 1.6s both}
+.corner{position:absolute;width:56px;height:56px;border-color:#f2f2f2;border-style:solid;border-width:0}
+.vfbox{position:absolute;left:280px;top:178px;width:880px;height:495px;background:#000;overflow:hidden;box-shadow:0 0 0 1px rgba(255,255,255,.35)}
+.vfbox video{width:100%;height:100%;object-fit:cover;display:block}
+.vfline{position:absolute;font:500 12px/1 'IBM Plex Mono',monospace;letter-spacing:.18em;text-transform:uppercase;color:#f2f2f2;display:flex;align-items:center;gap:10px}
+.vfline .recdot{animation:blink 1.4s steps(2) infinite}
+@keyframes blink{50%{opacity:.15}}
+.dg{display:inline-block;height:12px;overflow:hidden;vertical-align:top}
+.dg span{display:block;white-space:pre;line-height:12px}
+.d10{animation:d10 10s steps(10) infinite}
+.d6{animation:d6 60s steps(6) infinite}
+.d24{animation:d24 1s steps(24) infinite}
+@keyframes d10{to{transform:translateY(-120px)}}
+@keyframes d6{to{transform:translateY(-72px)}}
+@keyframes d24{to{transform:translateY(-288px)}}
+.ticket{position:relative;display:flex;flex-direction:column;gap:10px;padding:24px 30px;border:1px solid #3a3a3a;border-radius:6px;background:#0b0b0b}
+.ticket::before,.ticket::after{content:'';position:absolute;top:50%;width:22px;height:22px;margin-top:-11px;border-radius:50%;background:#050505;border:1px solid #3a3a3a}
+.ticket::before{left:-12px}.ticket::after{right:-12px}
+.billing{font-family:'Cormorant Garamond',serif;font-size:11px;line-height:1.25;letter-spacing:.06em;text-transform:uppercase;color:#cfcfcf;text-align:center}
+.roll{animation:roll2 2.2s 1.8s cubic-bezier(.2,.7,.2,1) both}
+@keyframes roll2{from{opacity:0;transform:translateY(220px)}to{opacity:1;transform:none}}
+.endrow{display:grid;grid-template-columns:150px minmax(0,1fr);gap:28px;align-items:baseline;padding:13px 0;border-bottom:1px solid #1f1f1f;text-decoration:none}
+.endrow span{text-align:right;font:400 12px/1 'Courier Prime',monospace;letter-spacing:.2em;text-transform:uppercase;color:#a8a8a8}
+.endrow b{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:26px;color:#fff;transition:color .3s}
+a.endrow:hover b{color:var(--acc)}
+.field{display:flex;flex-direction:column;gap:8px}
+.field label{font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:.2em;text-transform:uppercase;color:#a8a8a8}
+.field input,.field textarea{background:transparent;border:0;border-bottom:1px solid #4a4a4a;color:#fff;font:400 16px/1.5 'Inter',sans-serif;padding:10px 0;outline:none;resize:none;transition:border-color .3s}
+.field input:focus,.field textarea:focus{border-bottom-color:var(--acc)}
+
+.cam-backstage{transform:translateZ(900px) rotateX(0deg) rotateY(0deg) translate3d(863px,160px,-200px)}
+.cam-turn-backstage{transform:translateZ(900px) rotateX(0deg) rotateY(-29.8deg) translate3d(60px,90px,-900px)}
+.cam-wardrobe{transform:translateZ(900px) rotateX(0deg) rotateY(0deg) translate3d(265px,0px,1000px)}
+.cam-turn-wardrobe{transform:translateZ(900px) rotateX(0deg) rotateY(-11.6deg) translate3d(60px,90px,-900px)}
+.cam-action{transform:translateZ(900px) rotateX(0deg) rotateY(0deg) translate3d(-9px,900px,300px)}
+.cam-breathe{transform:translateZ(900px) rotateX(0deg) rotateY(0deg) translate3d(-9px,750px,1300px)}
+.v-action .scene,.v-breathe .scene{transition-duration:2.8s}
+.v-backstage .pool-backstage,.v-wardrobe .pool-wardrobe{opacity:1}
+.v-backstage .shade{opacity:.6}
+.v-action .shade{opacity:.12}
+.v-breathe .shade{opacity:.22}
+.archglow{box-sizing:border-box;border:80px solid rgba(255,205,130,.85);border-bottom:0;border-radius:420px 420px 0 0;filter:blur(36px);opacity:0;transition:opacity 1.5s ease}
+.t-bw .archglow{border-color:rgba(255,255,255,.75)}
+.v-action .archglow{opacity:.5}
+.v-breathe .archglow{animation:archB 16s ease-in-out 2.4s infinite}
+@keyframes archB{0%{opacity:.06}25%{opacity:.85}50%{opacity:.85}75%{opacity:.06}100%{opacity:.06}}
+.root.v-projects .prop-clap{pointer-events:auto}
+.mirror{position:absolute;left:50%;top:110px;width:620px;height:620px;margin-left:-310px;z-index:8;animation:riseIn .9s 1.6s both}
+.mframe{position:absolute;inset:0;border-radius:22px;background-color:#2b1d12;background-image:radial-gradient(circle at 26px 26px,#fff7dc 0 7px,rgba(255,214,150,.55) 9px,rgba(0,0,0,0) 14px);background-size:52px 52px;box-shadow:0 0 90px rgba(255,200,120,.28),inset 0 0 0 2px #5a4127}
+.t-bw .mframe{filter:grayscale(1)}
+.glass{position:absolute;inset:40px;border-radius:10px;overflow:hidden;background:#0b0a09;box-shadow:inset 0 0 40px rgba(0,0,0,.8)}
+.glass img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;animation:mfade 16s infinite}
+@keyframes mfade{0%{opacity:0;transform:scale(1.06)}6%{opacity:1}25%{opacity:1}31%{opacity:0;transform:scale(1)}100%{opacity:0}}
+.glass::after{content:'';position:absolute;inset:0;background:linear-gradient(120deg,rgba(255,255,255,.14) 0%,rgba(255,255,255,0) 30%,rgba(255,255,255,0) 60%,rgba(255,255,255,.07) 70%,rgba(255,255,255,0) 80%);pointer-events:none}
+.lipstick{position:absolute;right:62px;bottom:64px;z-index:2;font-family:'Permanent Marker',cursive;font-size:30px;color:#d23a3a;transform:rotate(-8deg)}
+.t-bw .lipstick{color:#ececec}
+.mcap{position:absolute;left:0;right:0;top:752px;z-index:8;display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;animation:riseIn .9s 1.9s both}
+.hanger{position:relative;display:grid;grid-template-columns:44px minmax(0,1fr);gap:16px;align-items:center;padding:18px 170px 18px 0;border-top:1px solid #262626}
+.hanger .pv{position:absolute;right:0;top:50%;width:140px;height:180px;margin-top:-90px;object-fit:cover;opacity:0;transform:translateX(10px) rotate(3deg);transition:opacity .4s,transform .4s;box-shadow:0 14px 30px rgba(0,0,0,.6)}
+.hanger:hover .pv{opacity:1;transform:none}
+.hanger:hover .rn{color:var(--acc)}
+.rn{font-family:'Cormorant Garamond',serif;font-size:30px;line-height:1.1;color:#fff;transition:color .3s}
+.beam2d{position:absolute;left:0;top:0;width:1440px;height:900px;pointer-events:none;z-index:4;background:linear-gradient(180deg,rgba(255,236,200,.22),rgba(255,236,200,.04));clip-path:polygon(47% 0,53% 0,44% 100%,28% 100%);opacity:0;transition:opacity 1.2s ease 2s}
+.t-bw .beam2d{background:linear-gradient(180deg,rgba(255,255,255,.2),rgba(255,255,255,.03))}
+.v-action .beam2d,.v-breathe .beam2d{opacity:1}
+.actword{position:absolute;inset:0;z-index:9;display:flex;align-items:center;justify-content:center;pointer-events:none;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:180px;letter-spacing:.2em;text-transform:uppercase;color:#fff;text-shadow:0 0 60px rgba(0,0,0,.8);animation:actw 2.6s 3.2s both}
+@keyframes actw{0%{opacity:0;transform:scale(1.15)}18%{opacity:1;transform:scale(1)}70%{opacity:1}100%{opacity:0;transform:scale(.97)}}
+.cutbar{position:absolute;left:0;right:0;bottom:56px;z-index:10;display:flex;justify-content:center;gap:14px;animation:riseIn .8s 3s both}
+.cutbtn{background:#f2f2f2;color:#0a0a0a;border:0;border-radius:999px;padding:16px 26px;font:600 13px/1 'Inter',sans-serif;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;display:flex;gap:10px;align-items:center}
+.cutbtn:hover{background:#fff}
+.cutbtn i{width:9px;height:9px;border-radius:50%;background:#ff4d4d}
+.actbtn{background:none;border:1px solid #7a4040;color:#f2f2f2;border-radius:999px;padding:11px 16px;font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;display:flex;gap:8px;align-items:center;transition:background .3s}
+.actbtn:hover{background:rgba(255,77,77,.16)}
+.actbtn i{width:8px;height:8px;border-radius:50%;background:#ff4d4d}
+.sndbtn{background:none;border:1px solid #4a4a4a;color:#bdbdbd;border-radius:999px;width:42px;height:42px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s}
+.sndbtn:hover{color:#fff}
+.sndbtn.on{border-color:#f2f2f2;color:#fff;background:rgba(255,255,255,.08)}
+.breath{position:absolute;left:50%;top:50%;width:300px;height:300px;margin:-200px 0 0 -150px;z-index:9;pointer-events:none;animation:riseIn .9s 2.4s both}
+.bcircle{position:absolute;inset:0;border-radius:50%;border:1px solid rgba(255,255,255,.7);background:radial-gradient(circle,rgba(255,226,180,.25),rgba(255,226,180,0) 70%);transform:scale(.55);animation:breathe 16s ease-in-out 2.4s infinite}
+@keyframes breathe{0%{transform:scale(.55)}25%{transform:scale(1)}50%{transform:scale(1)}75%{transform:scale(.55)}100%{transform:scale(.55)}}
+.bword{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:40px;color:#fff;opacity:0;animation:bw4 16s linear infinite}
+@keyframes bw4{0%{opacity:0}2%{opacity:1}23%{opacity:1}25%{opacity:0}100%{opacity:0}}
+.bcard{position:absolute;left:0;right:0;bottom:56px;z-index:10;display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;animation:riseIn .9s 2.6s both}
+.bloop{position:absolute;inset:0;z-index:22;background:rgba(5,5,5,.95);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:34px;animation:riseIn .5s both}
+.bgrid{display:flex;gap:26px;animation:jit .18s steps(2) infinite}
+@keyframes jit{0%{transform:translate3d(0,0,0)}50%{transform:translate3d(1px,-1px,0)}}
+.bframe{width:240px;background:#f3f1ea;padding:10px 10px 38px;box-shadow:0 20px 40px rgba(0,0,0,.6);position:relative;box-sizing:border-box}
+.bframe img,.bframe .slot{width:220px;height:240px;object-fit:cover;display:block}
+.bframe p{position:absolute;left:12px;right:12px;bottom:10px;margin:0;font-family:'Permanent Marker',cursive;font-size:13px;color:#222}
+.toast{position:absolute;left:50%;bottom:130px;z-index:20;transform:translateX(-50%);background:#f2f2f2;color:#0a0a0a;padding:12px 18px;border-radius:999px;font:500 12px/1 'IBM Plex Mono',monospace;letter-spacing:.14em;text-transform:uppercase;animation:subIn .3s both}
+</style>
+</helmet>
+<div class="{{rootCls}}" ref="{{rootRef}}" onMouseMove="{{onMove}}">
+
+  <div class="stage">
+    <div class="sway" ref="{{swayRef}}">
+      <div class="bob">
+        <div class="{{camCls}}">
+
+          <div class="e wall" style="width: 1200px; height: 2900px; background-size: 4800px 2900px; background-position: 0px 0px; transform: translate3d(-3900px, -2600px, 1400px) rotateY(90deg)"></div>
+          <div class="e wall" style="width: 1200px; height: 2900px; background-size: 4800px 2900px; background-position: -1200px 0px; transform: translate3d(-3900px, -2600px, 200px) rotateY(90deg)"></div>
+          <div class="e wall" style="width: 1200px; height: 2900px; background-size: 4800px 2900px; background-position: -2400px 0px; transform: translate3d(-3900px, -2600px, -1000px) rotateY(90deg)"></div>
+          <div class="e wall" style="width: 1080px; height: 2900px; background-size: 4800px 2900px; background-position: -3600px 0px; transform: translate3d(-3900px, -2600px, -2200px) rotateY(90deg)"></div>
+          <div class="e wall" style="width: 1080px; height: 2900px; background-size: 4800px 2900px; background-position: -120px 0px; transform: translate3d(3900px, -2600px, -3280px) rotateY(-90deg)"></div>
+          <div class="e wall" style="width: 1200px; height: 2900px; background-size: 4800px 2900px; background-position: -1200px 0px; transform: translate3d(3900px, -2600px, -2200px) rotateY(-90deg)"></div>
+          <div class="e wall" style="width: 1200px; height: 2900px; background-size: 4800px 2900px; background-position: -2400px 0px; transform: translate3d(3900px, -2600px, -1000px) rotateY(-90deg)"></div>
+          <div class="e wall" style="width: 1200px; height: 2900px; background-size: 4800px 2900px; background-position: -3600px 0px; transform: translate3d(3900px, -2600px, 200px) rotateY(-90deg)"></div>
+          <div class="e flat floor" style="width: 1900px; height: 800px; background-size: 7600px 4800px; background-position: 0px 0px; transform: translate3d(-3800px, 300px, -3392px) rotateX(90deg)"></div>
+          <div class="e flat floor" style="width: 1900px; height: 800px; background-size: 7600px 4800px; background-position: -1900px 0px; transform: translate3d(-1900px, 300px, -3392px) rotateX(90deg)"></div>
+          <div class="e flat floor" style="width: 1900px; height: 800px; background-size: 7600px 4800px; background-position: -3800px 0px; transform: translate3d(0px, 300px, -3392px) rotateX(90deg)"></div>
+          <div class="e flat floor" style="width: 1900px; height: 800px; background-size: 7600px 4800px; background-position: -5700px 0px; transform: translate3d(1900px, 300px, -3392px) rotateX(90deg)"></div>
+          <div class="e flat floor" style="width: 1900px; height: 800px; background-size: 7600px 4800px; background-position: 0px -800px; transform: translate3d(-3800px, 300px, -2592px) rotateX(90deg)"></div>
+          <div class="e flat floor" style="width: 1900px; height: 800px; background-size: 7600px 4800px; background-position: -1900px -800px; transform: translate3d(-1900px, 300px, -2592px) rotateX(90deg)"></div>
+          <div class="e flat floor" style="width: 1900px; height: 800px; background-size: 7600px 4800px; background-position: -3800px -800px; transform: translate3d(0px, 300px, -2592px) rotateX(90deg)"></div>
+          <div class="e flat floor" style="width: 1900px; height: 800px; background-size: 7600px 4800px; background-position: -5700px -800px; transform: translate3d(1900px, 300px, -2592px) rotateX(90deg)"></div>
+          <div class="e flat floor" style="width: 1900px; height: 800px; background-size: 7600px 4800px; background-position: 0px -1600px; transform: translate3d(-3800px, 300px, -1792px) rotateX(90deg)"></div>
+          <div class="e flat floor" style="width: 1900px; height: 800px; background-size: 7600px 4800px; background-position: -1900px -1600px; transform: translate3d(-1900px, 300px, -1792px) rotateX(90deg)"></div>
+          <div class="e flat floor" style="width: 1900px; height: 800px; background-size: 7600px 4800px; background-position: -3800px -1600px; transform: translate3d(0px, 300px, -1792px) rotateX(90deg)"></div>
+          <div class="e flat floor" style="width: 1900px; height: 800px; background-size: 7600px 4800px; background-position: -5700px -1600px; transform: translate3d(1900px, 300px, -1792px) rotateX(90deg)"></div>
+          <div class="e flat floor" style="width: 1900px; height: 800px; background-size: 7600px 4800px; background-position: 0px -2400px; transform: translate3d(-3800px, 300px, -992px) rotateX(90deg)"></div>
+          <div class="e flat floor" style="width: 1900px; height: 800px; background-size: 7600px 4800px; background-position: -1900px -2400px; transform: translate3d(-1900px, 300px, -992px) rotateX(90deg)"></div>
+          <div class="e flat floor" style="width: 1900px; height: 800px; background-size: 7600px 4800px; background-position: -3800px -2400px; transform: translate3d(0px, 300px, -992px) rotateX(90deg)"></div>
+          <div class="e flat floor" style="width: 1900px; height: 800px; background-size: 7600px 4800px; background-position: -5700px -2400px; transform: translate3d(1900px, 300px, -992px) rotateX(90deg)"></div>
+          <div class="e flat floor" style="width: 1900px; height: 800px; background-size: 7600px 4800px; background-position: 0px -3200px; transform: translate3d(-3800px, 300px, -192px) rotateX(90deg)"></div>
+          <div class="e flat floor" style="width: 1900px; height: 800px; background-size: 7600px 4800px; background-position: -1900px -3200px; transform: translate3d(-1900px, 300px, -192px) rotateX(90deg)"></div>
+          <div class="e flat floor" style="width: 1900px; height: 800px; background-size: 7600px 4800px; background-position: -3800px -3200px; transform: translate3d(0px, 300px, -192px) rotateX(90deg)"></div>
+          <div class="e flat floor" style="width: 1900px; height: 800px; background-size: 7600px 4800px; background-position: -5700px -3200px; transform: translate3d(1900px, 300px, -192px) rotateX(90deg)"></div>
+          <div class="e flat floor" style="width: 1900px; height: 800px; background-size: 7600px 4800px; background-position: 0px -4000px; transform: translate3d(-3800px, 300px, 608px) rotateX(90deg)"></div>
+          <div class="e flat floor" style="width: 1900px; height: 800px; background-size: 7600px 4800px; background-position: -1900px -4000px; transform: translate3d(-1900px, 300px, 608px) rotateX(90deg)"></div>
+          <div class="e flat floor" style="width: 1900px; height: 800px; background-size: 7600px 4800px; background-position: -3800px -4000px; transform: translate3d(0px, 300px, 608px) rotateX(90deg)"></div>
+          <div class="e flat floor" style="width: 1900px; height: 800px; background-size: 7600px 4800px; background-position: -5700px -4000px; transform: translate3d(1900px, 300px, 608px) rotateX(90deg)"></div>
+
+          <div class="e" style="width: 1900px; height: 1552px; overflow: hidden; transform: translate3d(-3800px, -2803px, -3400px)"><img src="{{I.plate}}" alt="" style="position: absolute; left: 0px; top: 0px; width: 7600px; height: 4275px; max-width: none"></div>
+          <div class="e" style="width: 1900px; height: 1552px; overflow: hidden; transform: translate3d(-1900px, -2803px, -3400px)"><img src="{{I.plate}}" alt="" style="position: absolute; left: -1900px; top: 0px; width: 7600px; height: 4275px; max-width: none"></div>
+          <div class="e" style="width: 1900px; height: 1552px; overflow: hidden; transform: translate3d(0px, -2803px, -3400px)"><img src="{{I.plate}}" alt="" style="position: absolute; left: -3800px; top: 0px; width: 7600px; height: 4275px; max-width: none"></div>
+          <div class="e" style="width: 1900px; height: 1552px; overflow: hidden; transform: translate3d(1900px, -2803px, -3400px)"><img src="{{I.plate}}" alt="" style="position: absolute; left: -5700px; top: 0px; width: 7600px; height: 4275px; max-width: none"></div>
+          <div class="e" style="width: 1900px; height: 1551px; overflow: hidden; transform: translate3d(-3800px, -1251px, -3400px)"><img src="{{I.plate}}" alt="" style="position: absolute; left: 0px; top: -1552px; width: 7600px; height: 4275px; max-width: none"></div>
+          <div class="e" style="width: 1900px; height: 1551px; overflow: hidden; transform: translate3d(-1900px, -1251px, -3400px)"><img src="{{I.plate}}" alt="" style="position: absolute; left: -1900px; top: -1552px; width: 7600px; height: 4275px; max-width: none"></div>
+          <div class="e" style="width: 1900px; height: 1551px; overflow: hidden; transform: translate3d(0px, -1251px, -3400px)"><img src="{{I.plate}}" alt="" style="position: absolute; left: -3800px; top: -1552px; width: 7600px; height: 4275px; max-width: none"></div>
+          <div class="e" style="width: 1900px; height: 1551px; overflow: hidden; transform: translate3d(1900px, -1251px, -3400px)"><img src="{{I.plate}}" alt="" style="position: absolute; left: -5700px; top: -1552px; width: 7600px; height: 4275px; max-width: none"></div>
+          <div class="e screen3d" style="width: 2552px; height: 1146px; transform: translate3d(-1267px, -1283px, -3396px)">
+            <video ref="{{vref}}" src="/_blob/3d0efa2ad9acd279ce2ee1b4c2a66ff1" poster="/_blob/7672d4b219be4cb6efb53690eafbae5d" autoplay="" muted="" loop="" playsinline=""></video>
+          </div>
+          <div class="e archglow" style="width: 4180px; height: 1868px; transform: translate3d(-2027px, -1853px, -3390px)"></div>
+
+          <div class="e flat" style="width: 4200px; height: 1300px; transform: translate3d(-2100px, 299px, -3400px) rotateX(90deg); background: radial-gradient(ellipse 50% 100% at 50% 0%, rgba(255,196,120,.20), rgba(255,196,120,0) 80%)"></div>
+          <div class="e flat markpool" style="width: 900px; height: 700px; transform: translate3d(-748px, 299px, -1950px) rotateX(90deg)"></div>
+          <div class="e flat" style="width: 30px; height: 220px; background: #d9d4c7; opacity: .6; transform: translate3d(-312px, 297px, -1710px) rotateX(90deg)"></div>
+          <div class="e flat" style="width: 160px; height: 30px; background: #d9d4c7; opacity: .6; transform: translate3d(-378px, 297px, -1710px) rotateX(90deg)"></div>
+
+          <div class="e flat" style="width: 1071px; height: 110px; transform: translate3d(-446px, 298px, -955px) rotateX(90deg); background: repeating-linear-gradient(90deg, #2c2118 0 22px, rgba(0,0,0,0) 22px 96px)"></div>
+          <div class="e flat" style="width: 1071px; height: 10px; background: #7a7672; transform: translate3d(-446px, 297px, -945px) rotateX(90deg)"></div>
+          <div class="e flat" style="width: 1071px; height: 10px; background: #7a7672; transform: translate3d(-446px, 297px, -865px) rotateX(90deg)"></div>
+
+          <div class="e flat shadow3d" style="width: 500px; height: 200px; transform: translate3d(-967px, 298px, -1800px) rotateX(90deg)"></div>
+          <div class="e flat pool pool-wardrobe" style="width: 800px; height: 600px; transform: translate3d(-995px, 299px, -2000px) rotateX(90deg)"></div>
+          <div class="e" style="width: 412px; height: 560px; transform: translate3d(-801px, -260px, -1700px)">
+            <button class="prop" style="width: 412px; height: 560px" onClick="{{goWardrobe}}" onMouseEnter="{{hWardrobe}}" onMouseLeave="{{hOff}}" aria-label="Wardrobe — the costume rack"><img src="{{I.rack}}" alt=""></button>
+          </div>
+
+          <div class="e flat shadow3d" style="width: 480px; height: 200px; transform: translate3d(890px, 298px, -1900px) rotateX(90deg)"></div>
+          <div class="e deco" style="width: 403px; height: 640px; transform: translate3d(929px, -340px, -1800px)"><img src="{{I.spot}}" alt=""></div>
+
+          <div class="e flat shadow3d" style="width: 360px; height: 180px; transform: translate3d(-1132px, 298px, -1390px) rotateX(90deg)"></div>
+          <div class="e deco" style="width: 266px; height: 640px; transform: translate3d(-1085px, -340px, -1300px)"><img src="{{I.light}}" alt=""></div>
+
+          <div class="e flat pool pool-showreel" style="width: 1000px; height: 700px; transform: translate3d(-411px, 299px, -1250px) rotateX(90deg)"></div>
+          <div class="e flat shadow3d" style="width: 640px; height: 220px; transform: translate3d(-231px, 298px, -1010px) rotateX(90deg)"></div>
+          <div class="e" style="width: 545px; height: 600px; transform: translate3d(-184px, -300px, -900px)">
+            <button class="prop" style="width: 545px; height: 600px" onClick="{{goShowreel}}" onMouseEnter="{{hShowreel}}" onMouseLeave="{{hOff}}" aria-label="Showreel — the camera dolly"><img src="{{I.dolly}}" alt=""></button>
+          </div>
+
+          <div class="e flat pool pool-projects" style="width: 700px; height: 500px; transform: translate3d(-469px, 299px, -1030px) rotateX(90deg)"></div>
+          <div class="e flat shadow3d" style="width: 300px; height: 120px; transform: translate3d(-269px, 298px, -840px) rotateX(90deg)"></div>
+          <div class="e" style="width: 216px; height: 230px; transform: translate3d(-227px, 70px, -780px)">
+            <button class="prop prop-clap" style="width: 216px; height: 230px; rotate: -5deg" onClick="{{clapClick}}" onMouseEnter="{{hProjects}}" onMouseLeave="{{hOff}}" aria-label="Projects — the clapperboard"><img src="{{I.clap}}" alt=""></button>
+          </div>
+
+          <div class="e flat pool pool-about" style="width: 800px; height: 600px; transform: translate3d(16px, 299px, -550px) rotateX(90deg)"></div>
+          <div class="e flat shadow3d" style="width: 380px; height: 160px; transform: translate3d(226px, 298px, -330px) rotateX(90deg)"></div>
+          <div class="e" style="width: 289px; height: 470px; transform: translate3d(272px, -170px, -250px)">
+            <button class="prop" style="width: 289px; height: 470px" onClick="{{goAbout}}" onMouseEnter="{{hAbout}}" onMouseLeave="{{hOff}}" aria-label="About — the director’s chair"><img src="{{I.chair}}" alt=""></button>
+          </div>
+
+          <div class="e flat shadow3d" style="width: 560px; height: 220px; transform: translate3d(-1143px, 298px, -610px) rotateX(90deg)"></div>
+          <div class="e flat pool pool-backstage" style="width: 800px; height: 600px; transform: translate3d(-1263px, 299px, -800px) rotateX(90deg)"></div>
+          <div class="e" style="width: 322px; height: 660px; transform: translate3d(-1024px, -360px, -500px)">
+            <button class="prop" style="width: 322px; height: 660px" onClick="{{goBackstage}}" onMouseEnter="{{hBackstage}}" onMouseLeave="{{hOff}}" aria-label="Backstage — the dressing mirror"><img src="{{I.vanity}}" alt=""></button>
+          </div>
+
+          <div class="e flat pool pool-portfolio" style="width: 900px; height: 700px; transform: translate3d(-926px, 299px, -450px) rotateX(90deg)"></div>
+          <div class="e flat shadow3d" style="width: 460px; height: 180px; transform: translate3d(-706px, 298px, -190px) rotateX(90deg)"></div>
+          <div class="e" style="width: 366px; height: 440px; transform: translate3d(-659px, -140px, -100px)">
+            <button class="prop" style="width: 366px; height: 440px" onClick="{{goPortfolio}}" onMouseEnter="{{hPortfolio}}" onMouseLeave="{{hOff}}" aria-label="Portfolio — the film cart"><img src="{{I.cart}}" alt=""></button>
+          </div>
+
+          <div class="e flat pool pool-contact" style="width: 700px; height: 500px; transform: translate3d(550px, 299px, -950px) rotateX(90deg)"></div>
+          <div class="e flat shadow3d" style="width: 340px; height: 140px; transform: translate3d(730px, 298px, -770px) rotateX(90deg)"></div>
+          <div class="e" style="width: 264px; height: 330px; transform: translate3d(768px, -30px, -700px)">
+            <button class="prop" style="width: 264px; height: 330px" onClick="{{goContact}}" onMouseEnter="{{hContact}}" onMouseLeave="{{hOff}}" aria-label="Contacts — the call sheet"><img src="{{I.callsheet}}" alt=""></button>
+          </div>
+
+          <div class="e lab" style="transform: translate3d(89px, -330px, -900px); font-size: 40px"><div class="tape"><i></i><span>03 · Showreel</span></div></div>
+          <div class="e lab" style="transform: translate3d(-119px, 40px, -780px); font-size: 39px"><div class="tape"><i></i><span>04 · Projects</span></div></div>
+          <div class="e lab" style="transform: translate3d(416px, -200px, -250px); font-size: 30px"><div class="tape"><i></i><span>01 · About me</span></div></div>
+          <div class="e lab" style="transform: translate3d(900px, -60px, -700px); font-size: 25px"><div class="tape"><i></i><span>05 · Contacts</span></div></div>
+          <div class="e lab" style="transform: translate3d(-476px, -170px, -100px); font-size: 28px"><div class="tape"><i></i><span>02 · Portfolio</span></div></div>
+          <div class="e lab" style="transform: translate3d(-863px, -390px, -500px); font-size: 30px"><div class="tape"><i></i><span>06 · Backstage</span></div></div>
+          <div class="e lab" style="transform: translate3d(-595px, -300px, -1700px); font-size: 48px"><div class="tape"><i></i><span>07 · Wardrobe</span></div></div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="haze"></div>
+  <div class="torch" ref="{{torchRef}}"></div>
+  <div class="beam2d"></div>
+  <div class="shade"></div>
+  <div class="vignette"></div>
+  <div class="lbar lbar-t"></div>
+  <div class="lbar lbar-b"></div>
+
+  <sc-if value="{{isTitle}}" hint-placeholder-val="{{ true }}">
+    <div class="title">
+      <p class="eyebrow rise" style="color: #d6d6d6; margin-bottom: 30px; animation-delay: .3s">A portfolio in five scenes</p>
+      <h1 class="name rise" style="animation-delay: .6s">Mariia<br>Dmitrieva</h1>
+      <p class="slogan rise" style="animation-delay: 1s">Actress &amp; Creator<i></i>Merging Theatre and Psychology</p>
+      <button class="explore rise" style="animation-delay: 1.4s" onClick="{{goSet}}">Explore my world<b><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 2v12M3 9l5 5 5-5" stroke="#fff" stroke-width="1.4"></path></svg></b></button>
+    </div>
+  </sc-if>
+
+  <div class="hud">
+    <button class="logo" onClick="{{goSet}}">M · Dmitrieva</button>
+    <sc-if value="{{notTitle}}" hint-placeholder-val="{{ false }}">
+      <nav style="display: flex; gap: 2px; align-items: center" aria-label="Scenes">
+        <sc-for list="{{nav}}" as="n" hint-placeholder-count="5">
+          <button class="{{n.cls}}" onClick="{{n.go}}"><em>{{n.no}}</em>{{n.label}}</button>
+        </sc-for>
+      </nav>
+    </sc-if>
+    <div style="display: flex; gap: 10px; align-items: center">
+      <button class="actbtn" onClick="{{goAction}}"><i></i>Action!</button>
+      <button class="{{sndCls}}" onClick="{{toggleSound}}" aria-label="{{sndLabel}}"><sc-if value="{{sound}}" hint-placeholder-val="{{ false }}"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M2 7h3l4-3v10l-4-3H2z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"></path><path d="M12 6.5a3.5 3.5 0 010 5M14 4.5a6.3 6.3 0 010 9" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"></path></svg></sc-if><sc-if value="{{noSound}}" hint-placeholder-val="{{ true }}"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M2 7h3l4-3v10l-4-3H2z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"></path><path d="M12 7l4 4M16 7l-4 4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"></path></svg></sc-if></button>
+      <div class="grade-sw" role="group" aria-label="Colour grade">
+        <button class="{{bwCls}}" onClick="{{setBw}}"><i class="sw-bw"></i>B&amp;W</button>
+        <button class="{{coCls}}" onClick="{{setColor}}"><i class="sw-co"></i>Colour</button>
+      </div>
+    </div>
+  </div>
+
+  <sc-if value="{{isSet}}" hint-placeholder-val="{{ false }}">
+    <div class="hint">Walk the set — click a prop, or pick a scene above</div>
+    <div class="tc"><i class="recdot"></i>Stage 1 · {{gradeLabel}}</div>
+  </sc-if>
+
+  <sc-if value="{{subOn}}" hint-placeholder-val="{{ false }}">
+    <div class="sub"><span>{{subText}}</span></div>
+  </sc-if>
+
+  <sc-if value="{{isAbout}}" hint-placeholder-val="{{ false }}">
+    <section class="panel panel-r" aria-label="About me">
+      <button class="back" onClick="{{goSet}}"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M13 7H1M6 2L1 7l5 5" stroke="currentColor" stroke-width="1.3"></path></svg>Back to the floor</button>
+      <p class="eyebrow" style="margin-top: 30px"><b>Scene 01</b> · About me</p>
+      <h2 class="h2">Theatre <em>meets</em> psychology</h2>
+      <div class="page" style="margin-top: 52px; margin-right: 30px">
+        <div class="polaroid"><div class="ptape"></div><img class="photo" src="/_blob/4ae9f772d9b38f90dcb4029f98eb1cd0" alt="Portrait of Mariia Dmitrieva"></div>
+        <p style="text-align: right; margin-right: 110px!important">1.</p>
+        <p><b>INT. SOUNDSTAGE 1 — NIGHT</b></p>
+        <p style="margin-right: 120px!important">The marquee lights hum. MARIIA DMITRIEVA, actress &amp; creator, walks onto her mark.</p>
+        <p class="cue">Mariia (V.O.)</p>
+        <p class="paren">(to camera)</p>
+        <p class="dlg">[Short philosophy text — Mariia will send. Written as her monologue.]</p>
+        <p style="text-align: right; margin: 0">CUT TO:</p>
+      </div>
+      <div style="margin-top: 40px; display: flex; gap: 16px; flex-wrap: wrap">
+        <button class="btn" onClick="{{goShowreel}}">Watch video card<svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2l10 6-10 6z" fill="currentColor"></path></svg></button>
+      </div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{isShowreel}}" hint-placeholder-val="{{ false }}">
+    <section class="vf" aria-label="Showreel">
+      <div class="corner" style="left: 240px; top: 138px; border-top-width: 2px; border-left-width: 2px"></div>
+      <div class="corner" style="right: 240px; top: 138px; border-top-width: 2px; border-right-width: 2px"></div>
+      <div class="corner" style="left: 240px; top: 657px; border-bottom-width: 2px; border-left-width: 2px"></div>
+      <div class="corner" style="right: 240px; top: 657px; border-bottom-width: 2px; border-right-width: 2px"></div>
+      <div class="vfbox">
+        <video ref="{{vref2}}" src="/_blob/3d0efa2ad9acd279ce2ee1b4c2a66ff1" poster="/_blob/7672d4b219be4cb6efb53690eafbae5d" autoplay="" muted="" loop="" playsinline=""></video>
+        <div style="position: absolute; left: 50%; top: 50%; width: 40px; height: 40px; margin: -20px 0 0 -20px; border: 1px solid rgba(255,255,255,.6); border-radius: 50%"></div>
+        <div style="position: absolute; left: 0; right: 0; bottom: 0; padding: 18px 22px; background: linear-gradient(0deg, rgba(0,0,0,.7), rgba(0,0,0,0)); font: 500 11px/1 'IBM Plex Mono', monospace; letter-spacing: .2em; text-transform: uppercase; color: #d6d6d6">[YouTube embed — video business card · placeholder clip]</div>
+      </div>
+      <div class="vfline" style="left: 280px; top: 150px"><i class="recdot" style="width: 10px; height: 10px"></i>Rec · A-cam</div>
+      <div class="vfline" style="right: 280px; top: 150px">ISO 800 · 24 fps · 180° · {{kelvin}}</div>
+      <div class="vfline" style="left: 280px; top: 690px">TC 00:00:<span class="dg"><span class="d6">0
+1
+2
+3
+4
+5</span></span><span class="dg"><span class="d10">0
+1
+2
+3
+4
+5
+6
+7
+8
+9</span></span>:<span class="dg"><span class="d24">00
+01
+02
+03
+04
+05
+06
+07
+08
+09
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23</span></span></div>
+      <div class="vfline" style="right: 280px; top: 690px">Batt ▮▮▮▯ · 35mm · f/2.0</div>
+      <div style="position: absolute; left: 0; right: 0; top: 740px; display: flex; flex-direction: column; align-items: center; gap: 8px">
+        <p class="eyebrow"><b>Scene 03</b> · Video business card</p>
+        <button class="back" onClick="{{goSet}}"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M13 7H1M6 2L1 7l5 5" stroke="currentColor" stroke-width="1.3"></path></svg>Back to the floor</button>
+      </div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{isPortfolio}}" hint-placeholder-val="{{ false }}">
+    <section class="panel panel-full" aria-label="Portfolio">
+      <div style="max-width: 1280px; margin: 0 auto; padding: 0 40px; display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap">
+        <div>
+          <p class="eyebrow"><b>Scene 02</b> · Portfolio</p>
+          <h2 class="h2" style="font-size: 64px">Frames from <em>the stage</em></h2>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 12px; align-items: flex-end">
+          <div style="display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end">
+            <sc-for list="{{tabs}}" as="t" hint-placeholder-count="3">
+              <button class="{{t.cls}}" onClick="{{t.pick}}">{{t.label}}</button>
+            </sc-for>
+          </div>
+          <div class="grade-sw">
+            <button class="{{reelCls}}" onClick="{{setReel}}">Film reel</button>
+            <button class="{{sheetCls}}" onClick="{{setSheet}}">Contact sheet</button>
+          </div>
+        </div>
+      </div>
+      <sc-if value="{{isReel}}" hint-placeholder-val="{{ true }}">
+        <div class="reelbox" style="margin-top: 34px">
+          <div class="sprk" style="top: 10px"></div>
+          <div class="sprk" style="bottom: 10px"></div>
+          <div class="track">
+            <sc-for list="{{frames}}" as="f" hint-placeholder-count="8">
+              <figure class="frame">
+                <div class="pic">
+                  <sc-if value="{{f.img}}" hint-placeholder-val="{{ true }}"><img class="photo" src="{{f.img}}" alt="{{f.alt}}"></sc-if>
+                  <sc-if value="{{f.empty}}" hint-placeholder-val="{{ false }}"><div class="slot">{{f.slot}}</div></sc-if>
+                </div>
+                <figcaption class="cap"><b>{{f.no}}</b>{{f.cap}}</figcaption>
+              </figure>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+      <sc-if value="{{isSheet}}" hint-placeholder-val="{{ false }}">
+        <div class="sheet" style="margin-top: 34px">
+          <sc-for list="{{shots}}" as="s" hint-placeholder-count="4">
+            <figure class="shot">
+              <div class="pic">
+                <sc-if value="{{s.img}}" hint-placeholder-val="{{ true }}"><img class="photo" src="{{s.img}}" alt="{{s.alt}}"></sc-if>
+                <sc-if value="{{s.empty}}" hint-placeholder-val="{{ false }}"><div class="slot">{{s.slot}}</div></sc-if>
+              </div>
+              <sc-if value="{{s.pick}}" hint-placeholder-val="{{ false }}"><div class="circle"></div></sc-if>
+              <figcaption class="cap"><b>{{s.no}}</b>{{s.cap}}</figcaption>
+            </figure>
+          </sc-for>
+        </div>
+      </sc-if>
+      <div style="max-width: 1280px; margin: 20px auto 0; padding: 0 40px; display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap">
+        <button class="back" onClick="{{goSet}}"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M13 7H1M6 2L1 7l5 5" stroke="currentColor" stroke-width="1.3"></path></svg>Back to the floor</button>
+        <span class="eyebrow">Hover pauses the reel · caption: production — role, year</span>
+      </div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{isProjects}}" hint-placeholder-val="{{ false }}">
+    <section class="panel panel-r" aria-label="Projects">
+      <button class="back" onClick="{{goSet}}"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M13 7H1M6 2L1 7l5 5" stroke="currentColor" stroke-width="1.3"></path></svg>Back to the floor</button>
+      <p class="eyebrow" style="margin-top: 30px"><b>Scene 04</b> · Projects — now showing</p>
+      <div style="display: flex; gap: 32px; margin-top: 28px; align-items: flex-end">
+        <div style="position: relative; flex: none; width: 260px; height: 390px; overflow: hidden; border: 1px solid #2a2a2a">
+          <img class="photo" src="/_blob/61b2d71a72fee2e787bf3277654e1ba3" alt="" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover">
+          <div style="position: absolute; inset: 0; background: linear-gradient(0deg, rgba(0,0,0,.95) 0%, rgba(0,0,0,.15) 55%, rgba(0,0,0,.45) 100%)"></div>
+          <p class="eyebrow" style="position: absolute; top: 20px; left: 0; right: 0; text-align: center; font-size: 10px; color: #e0e0e0">A project by Mariia Dmitrieva</p>
+          <div style="position: absolute; left: 16px; right: 16px; bottom: 20px; display: flex; flex-direction: column; gap: 12px; align-items: center">
+            <div style="font-family: 'Cormorant Garamond', serif; font-size: 66px; line-height: .9; letter-spacing: .14em; color: #fff">HEART</div>
+            <div class="billing">[Billing block — project team credits]</div>
+          </div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 18px">
+          <p class="eyebrow">Featured project</p>
+          <p class="body ph">[1–2 sentences about the idea of the project]</p>
+          <div><a class="btn" href="#">Explore project<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M1 8h14M10 3l5 5-5 5" stroke="currentColor" stroke-width="1.4"></path></svg></a></div>
+        </div>
+      </div>
+      <p class="eyebrow" style="margin: 44px 0 16px">Coming soon</p>
+      <div style="display: flex; flex-direction: column; gap: 16px">
+        <div class="ticket"><span class="eyebrow" style="font-size: 10px">Admit one · 01</span><div style="font-family: 'Cormorant Garamond', serif; font-size: 26px; line-height: 1.15; color: #fff">Releasing Psychological and Physical Tension Before Going on Stage</div><p class="body ph" style="font-size: 14px">[A couple of sentences — coming]</p><div><button class="btn btn-ghost" style="padding: 12px 18px; font-size: 11px" onClick="{{goBreathe}}">Try it on stage — 1 minute</button></div></div>
+        <div class="ticket"><span class="eyebrow" style="font-size: 10px">Admit one · 02</span><div style="font-family: 'Cormorant Garamond', serif; font-size: 26px; line-height: 1.15; color: #fff">Theater as a Way to Develop Communication Among Teenagers</div><p class="body ph" style="font-size: 14px">[A couple of sentences — coming]</p></div>
+      </div>
+      <p class="eyebrow" style="margin-top: 30px; color: #707070">Psst — clap the slate on the left three times</p>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{isContact}}" hint-placeholder-val="{{ false }}">
+    <section class="panel panel-l" aria-label="Contacts">
+      <button class="back" onClick="{{goSet}}"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M13 7H1M6 2L1 7l5 5" stroke="currentColor" stroke-width="1.3"></path></svg>Back to the floor</button>
+      <p class="eyebrow" style="margin-top: 30px"><b>Scene 05</b> · Contacts</p>
+      <h2 class="h2">End <em>credits</em></h2>
+      <div class="roll" style="margin-top: 30px">
+        <a class="endrow" href="mailto:mariya171207@gmail.com"><span>Email</span><b>mariya171207@gmail.com</b></a>
+        <a class="endrow" href="#"><span>Instagram</span><b>[@handle]</b></a>
+        <a class="endrow" href="#"><span>Telegram</span><b>[@handle]</b></a>
+        <div class="endrow"><span>Based in</span><b>Saint Petersburg</b></div>
+        <div style="margin-top: 26px"><a class="btn btn-ghost" href="#">Download CV<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 1v11M3 7l5 5 5-5M2 15h12" stroke="currentColor" stroke-width="1.4"></path></svg></a></div>
+      </div>
+      <form style="margin-top: 40px; display: flex; flex-direction: column; gap: 22px">
+        <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px">
+          <div class="field"><label for="s-name">Name</label><input id="s-name" type="text" placeholder="Your name"></div>
+          <div class="field"><label for="s-mail">Email</label><input id="s-mail" type="email" placeholder="you@studio.com"></div>
+        </div>
+        <div class="field"><label for="s-msg">Message</label><textarea id="s-msg" rows="3" placeholder="Casting, collaboration, workshop…"></textarea></div>
+        <div><button class="btn" type="button" onClick="{{wrap}}">{{sendLabel}}</button></div>
+      </form>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{isBackstage}}" hint-placeholder-val="{{ false }}">
+    <div class="mirror" aria-label="Backstage">
+      <div class="mframe"></div>
+      <div class="glass">
+        <img class="photo" src="/_blob/4ae9f772d9b38f90dcb4029f98eb1cd0" alt="Backstage photo" style="animation-delay: 0s">
+        <img class="photo" src="/_blob/c6bfefd39aa889c1fa1a4501e03622ec" alt="Backstage photo" style="animation-delay: 4s">
+        <img class="photo" src="/_blob/61b2d71a72fee2e787bf3277654e1ba3" alt="Backstage photo" style="animation-delay: 8s">
+        <img class="photo" src="/_blob/8dae2ae7df29800f0e42bf34f0b1bbf4" alt="Backstage photo" style="animation-delay: 12s">
+      </div>
+      <div class="lipstick">Break a leg!</div>
+    </div>
+    <div class="mcap">
+      <p class="eyebrow"><b>Scene 06</b> · Backstage — behind the curtain</p>
+      <p class="body ph" style="font-size: 14px">[Captions for behind-the-scenes photos]</p>
+      <button class="back" onClick="{{goSet}}"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M13 7H1M6 2L1 7l5 5" stroke="currentColor" stroke-width="1.3"></path></svg>Back to the floor</button>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{isWardrobe}}" hint-placeholder-val="{{ false }}">
+    <section class="panel panel-r" aria-label="Wardrobe">
+      <button class="back" onClick="{{goSet}}"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M13 7H1M6 2L1 7l5 5" stroke="currentColor" stroke-width="1.3"></path></svg>Back to the floor</button>
+      <p class="eyebrow" style="margin-top: 30px"><b>Scene 07</b> · Wardrobe</p>
+      <h2 class="h2">Roles I’ve <em>worn</em></h2>
+      <p class="body" style="margin-top: 18px; color: #bdbdbd">Every costume on the rack is a character. Hover a hanger to meet her.</p>
+      <div style="margin-top: 30px">
+        <div class="hanger"><svg width="40" height="30" viewBox="0 0 40 30" fill="none" aria-hidden="true"><path d="M20 9a3.5 3.5 0 113.5-3.5M20 9v3L3 26h34L20 12" stroke="#bdbdbd" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></svg><div><div class="rn">[Role]</div><p class="eyebrow" style="margin-top: 8px">Look 01 · [Production], [Year]</p></div><img class="pv photo" src="/_blob/8dae2ae7df29800f0e42bf34f0b1bbf4" alt=""></div>
+        <div class="hanger"><svg width="40" height="30" viewBox="0 0 40 30" fill="none" aria-hidden="true"><path d="M20 9a3.5 3.5 0 113.5-3.5M20 9v3L3 26h34L20 12" stroke="#bdbdbd" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></svg><div><div class="rn">[Role]</div><p class="eyebrow" style="margin-top: 8px">Look 02 · [Production], [Year]</p></div><img class="pv photo" src="/_blob/61b2d71a72fee2e787bf3277654e1ba3" alt=""></div>
+        <div class="hanger"><svg width="40" height="30" viewBox="0 0 40 30" fill="none" aria-hidden="true"><path d="M20 9a3.5 3.5 0 113.5-3.5M20 9v3L3 26h34L20 12" stroke="#bdbdbd" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></svg><div><div class="rn">[Role]</div><p class="eyebrow" style="margin-top: 8px">Look 03 · [Production], [Year]</p></div><img class="pv photo" src="/_blob/4ae9f772d9b38f90dcb4029f98eb1cd0" alt=""></div>
+        <div class="hanger"><svg width="40" height="30" viewBox="0 0 40 30" fill="none" aria-hidden="true"><path d="M20 9a3.5 3.5 0 113.5-3.5M20 9v3L3 26h34L20 12" stroke="#bdbdbd" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></svg><div><div class="rn">[Role]</div><p class="eyebrow" style="margin-top: 8px">Look 04 · [Production], [Year]</p></div><img class="pv photo" src="/_blob/c6bfefd39aa889c1fa1a4501e03622ec" alt=""></div>
+      </div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{isAction}}" hint-placeholder-val="{{ false }}">
+    <div class="actword">Action</div>
+    <div class="cutbar"><button class="cutbtn" onClick="{{cut}}"><i></i>Cut!</button></div>
+  </sc-if>
+
+  <sc-if value="{{isBreathe}}" hint-placeholder-val="{{ false }}">
+    <div class="breath">
+      <div class="bcircle"></div>
+      <div class="bword" style="animation-delay: 2.4s">Breathe in</div>
+      <div class="bword" style="animation-delay: 6.4s">Hold</div>
+      <div class="bword" style="animation-delay: 10.4s">Breathe out</div>
+      <div class="bword" style="animation-delay: 14.4s">Hold</div>
+    </div>
+    <div class="bcard">
+      <p class="eyebrow"><b>Before you go on stage</b> · box breathing 4 · 4 · 4 · 4</p>
+      <p class="body" style="max-width: 560px; color: #d6d6d6">Stand on your mark and follow the light of the arch: in for four, hold for four, out for four, hold for four.</p>
+      <button class="back" onClick="{{goProjects}}"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M13 7H1M6 2L1 7l5 5" stroke="currentColor" stroke-width="1.3"></path></svg>Back to projects</button>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{bloopOn}}" hint-placeholder-val="{{ false }}">
+    <div class="bloop">
+      <p class="eyebrow"><b>Blooper reel</b> · takes that didn’t make the cut</p>
+      <div class="bgrid">
+        <div class="bframe" style="transform: rotate(-4deg)"><img class="photo" src="/_blob/8dae2ae7df29800f0e42bf34f0b1bbf4" alt="Blooper"><p>Take 03 — [what went wrong]</p></div>
+        <div class="bframe" style="transform: rotate(3deg) translateY(14px)"><img class="photo" src="/_blob/4ae9f772d9b38f90dcb4029f98eb1cd0" alt="Blooper"><p>Take 07 — [what went wrong]</p></div>
+        <div class="bframe" style="transform: rotate(-2deg)"><div class="slot" style="border-color: #bbb; color: #666">[Blooper photo]</div><p>Take 12 — [what went wrong]</p></div>
+      </div>
+      <button class="cutbtn" onClick="{{closeBloop}}"><i></i>Cut! Back to work</button>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{toastOn}}" hint-placeholder-val="{{ false }}">
+    <div class="toast">{{toastText}}</div>
+  </sc-if>
+
+  <sc-if value="{{slateOn}}" hint-placeholder-val="{{ false }}">
+    <div class="slate" aria-hidden="true">
+      <div class="stick"></div>
+      <div class="board">
+        <div class="chalk" style="font-size: 11px; color: #a8a8a8">Prod. Mariia Dmitrieva</div>
+        <div style="font-family: 'Cormorant Garamond', serif; font-size: 56px; line-height: 1; color: #fff; letter-spacing: .04em">{{slateName}}</div>
+        <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid #555; padding-top: 12px">
+          <div class="chalk" style="font-size: 11px">Scene<div style="font-size: 26px; margin-top: 6px">{{slateNo}}</div></div>
+          <div class="chalk" style="font-size: 11px">Take<div style="font-size: 26px; margin-top: 6px">{{take}}</div></div>
+          <div class="chalk" style="font-size: 11px">Roll<div style="font-size: 26px; margin-top: 6px">{{rollLetter}}</div></div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{flashOn}}" hint-placeholder-val="{{ false }}">
+    <div class="flash"></div>
+  </sc-if>
+
+  <div class="{{curCls}}" ref="{{curRef}}"><b>{{hoverLabel}}</b></div>
+
+  <sc-if value="{{leaderOn}}" hint-placeholder-val="{{ false }}">
+    <div class="leader">
+      <div class="ring">
+        <div class="sweep"></div>
+        <div class="hx"></div>
+        <div class="vx"></div>
+        <div class="num" style="animation-delay: 0s">3</div>
+        <div class="num" style="animation-delay: 1s">2</div>
+        <div class="num" style="animation-delay: 2s">1</div>
+      </div>
+      <p class="eyebrow" style="color: #8c8c8c">Picture start · Mariia Dmitrieva</p>
+      <button class="skip" onClick="{{skipLeader}}">Skip intro</button>
+    </div>
+  </sc-if>
+
+  <div class="grain"></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"theme":{"editor":"enum","options":["bw","color"],"default":"bw"},"intro":{"editor":"boolean","default":true},"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  componentDidMount() {
+    if (this.props.intro !== false) {
+      this._lt = setTimeout(() => this.setState({ leaderDone: true }), 3900);
+    }
+  }
+  componentWillUnmount() {
+    [this._lt, this._st, this._wt, this._pt, this._ft, this._sl, this._tt, this._ct, this._ck].forEach((t) => clearTimeout(t));
+    if (this._raf) cancelAnimationFrame(this._raf);
+    if (this._snd && this._snd.ctx && this._snd.ctx.close) { try { this._snd.ctx.close(); } catch (e) {} }
+  }
+  sfx(kind, arg) {
+    const S = this._snd;
+    if (!S || !S.on || !S.ctx) return;
+    const c = S.ctx, t0 = c.currentTime + 0.01;
+    const noise = (dur) => { const b = c.createBuffer(1, Math.ceil(c.sampleRate * dur), c.sampleRate); const d = b.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1; const n = c.createBufferSource(); n.buffer = b; return n; };
+    const env = (g, t, a, peak, dec) => { g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(peak, t + a); g.gain.exponentialRampToValueAtTime(0.0001, t + a + dec); };
+    if (kind === 'clap') {
+      [0, 0.018].forEach((off, k) => {
+        const n = noise(0.2), f = c.createBiquadFilter(), g = c.createGain();
+        f.type = 'bandpass'; f.frequency.value = k ? 2600 : 1700; f.Q.value = 0.9;
+        n.connect(f); f.connect(g); g.connect(S.out); env(g, t0 + off, 0.002, k ? 0.35 : 0.9, 0.09); n.start(t0 + off); n.stop(t0 + off + 0.2);
+      });
+      const o = c.createOscillator(), g2 = c.createGain(); o.type = 'triangle'; o.frequency.setValueAtTime(180, t0); o.frequency.exponentialRampToValueAtTime(70, t0 + 0.08);
+      o.connect(g2); g2.connect(S.out); env(g2, t0, 0.002, 0.35, 0.1); o.start(t0); o.stop(t0 + 0.2);
+    } else if (kind === 'steps') {
+      const count = arg || 4;
+      for (let i = 0; i < count; i++) {
+        const t = t0 + i * 0.47 + (i % 2 ? 0.03 : 0);
+        const o = c.createOscillator(), g = c.createGain(); o.type = 'sine'; o.frequency.setValueAtTime(95, t); o.frequency.exponentialRampToValueAtTime(45, t + 0.1);
+        o.connect(g); g.connect(S.out); env(g, t, 0.004, 0.32, 0.14); o.start(t); o.stop(t + 0.2);
+        const n = noise(0.06), f = c.createBiquadFilter(), g2 = c.createGain(); f.type = 'highpass'; f.frequency.value = 1800;
+        n.connect(f); f.connect(g2); g2.connect(S.out); env(g2, t, 0.002, 0.07, 0.03); n.start(t); n.stop(t + 0.06);
+      }
+    } else if (kind === 'whoosh') {
+      const n = noise(0.7), f = c.createBiquadFilter(), g = c.createGain(); f.type = 'bandpass'; f.Q.value = 1.2;
+      f.frequency.setValueAtTime(300, t0); f.frequency.exponentialRampToValueAtTime(3200, t0 + 0.45);
+      n.connect(f); f.connect(g); g.connect(S.out); env(g, t0, 0.15, 0.16, 0.4); n.start(t0); n.stop(t0 + 0.7);
+    } else if (kind === 'voice') {
+      const url = arg === 'cut' ? '/_blob/1d4feb21c3aa431e760939f79b4d3d47' : '/_blob/be3673b67252df22d01e42fd0e34a292';
+      const playBuf = (buf) => { if (!S.on) return; const src = c.createBufferSource(); src.buffer = buf; const g = c.createGain(); g.gain.value = 1; src.connect(g); g.connect(S.out); src.start(); };
+      if (S.buf[arg]) playBuf(S.buf[arg]);
+      else fetch(url).then((r) => r.arrayBuffer()).then((ab) => new Promise((res, rej) => c.decodeAudioData(ab, res, rej))).then((buf) => { S.buf[arg] = buf; playBuf(buf); }).catch(() => {});
+    }
+  }
+  renderVals() {
+    const st = this.state || {};
+    const v = st.view || 'title';
+    const phase = st.phase || 'walk';
+    const theme = st.theme || this.props.theme || 'bw';
+    const cat = st.cat || 0;
+    const pmode = st.pmode || 'reel';
+    const scenes = {
+      about: ['01', 'About me', 'A', 'the director’s chair'],
+      portfolio: ['02', 'Portfolio', 'B', 'the film cart'],
+      showreel: ['03', 'Showreel', 'C', 'the camera dolly'],
+      projects: ['04', 'Projects', 'D', 'the clapperboard'],
+      contact: ['05', 'Contacts', 'E', 'the call sheet'],
+      backstage: ['06', 'Backstage', 'F', 'the dressing mirror'],
+      wardrobe: ['07', 'Wardrobe', 'G', 'the costume rack']
+    };
+    const special = { action: 'Quiet on set… rolling…', breathe: 'Stepping onto your mark…' };
+    const clear = () => [this._st, this._wt, this._pt, this._sl].forEach((t) => clearTimeout(t));
+    const go = (x) => () => {
+      const cur = (this.state && this.state.view) || 'title';
+      if (x === cur) return;
+      clear();
+      if (x !== 'set' && this._sway) this._sway.style.transform = '';
+      const take = ((this.state && this.state.take) || 0) + 1;
+      const walk = () => {
+        this.setState({ phase: 'walk', walking: true });
+        if (cur !== 'title') this.sfx('steps', 4);
+        this._wt = setTimeout(() => this.setState({ walking: false, sub: null }), x === 'action' || x === 'breathe' ? 2900 : 2250);
+        if (scenes[x]) {
+          this._sl = setTimeout(() => {
+            this.setState({ slate: x });
+            setTimeout(() => this.sfx('clap'), 520);
+            this._st = setTimeout(() => this.setState({ slate: null }), 1300);
+          }, 900);
+        }
+        if (x === 'action') this._sl = setTimeout(() => this.sfx('voice', 'action'), 300);
+      };
+      const sub = x === 'set' ? 'Back to the floor…' : (scenes[x] ? 'Walking to ' + scenes[x][3] + '…' : (special[x] || null));
+      if (cur === 'set' && scenes[x]) {
+        this.setState({ view: x, phase: 'turn', walking: false, take, sub, bloop: false });
+        this._pt = setTimeout(walk, 880);
+      } else {
+        this.setState({ view: x, take, sub: cur === 'title' ? null : sub, bloop: false });
+        walk();
+      }
+    };
+    if (!this._init) {
+      this._init = true;
+      this._snd = { on: false, ctx: null, buf: {} };
+      const play = (el) => { if (el) { el.muted = true; el.loop = true; el.playsInline = true; const p = el.play && el.play(); if (p && p.catch) p.catch(() => {}); } };
+      this._vref = play;
+      this._vref2 = play;
+      this._rootRef = (el) => { this._root = el; };
+      this._swayRef = (el) => { this._sway = el; };
+      this._torchRef = (el) => { this._torch = el; };
+      this._curRef = (el) => { this._cur = el; };
+      this._onMove = (e) => {
+        const r = this._root; if (!r) return;
+        const b = r.getBoundingClientRect(); if (!b.width) return;
+        this._mx = (e.clientX - b.left) / b.width * 1440;
+        this._my = (e.clientY - b.top) / b.height * 900;
+        if (this._raf) return;
+        this._raf = requestAnimationFrame(() => {
+          this._raf = 0;
+          const x = this._mx, y = this._my;
+          if (this._torch) this._torch.style.transform = 'translate3d(' + x.toFixed(0) + 'px,' + y.toFixed(0) + 'px,0)';
+          if (this._cur) this._cur.style.transform = 'translate3d(' + x.toFixed(0) + 'px,' + y.toFixed(0) + 'px,0)';
+          const isSet = ((this.state && this.state.view) || 'title') === 'set';
+          if (this._sway) this._sway.style.transform = isSet ? 'rotateY(' + ((x / 1440 - 0.5) * 3).toFixed(2) + 'deg) rotateX(' + ((y / 900 - 0.5) * -1.6).toFixed(2) + 'deg)' : '';
+        });
+      };
+      this._hov = {};
+      Object.keys(scenes).forEach((k) => { this._hov[k] = () => this.setState({ hover: k }); });
+      this._hOff = () => this.setState({ hover: null });
+      this._toast = (t) => { clearTimeout(this._tt); this.setState({ toast: t }); this._tt = setTimeout(() => this.setState({ toast: null }), 1300); };
+      this._toggleSound = () => {
+        const S = this._snd;
+        if (!S.ctx) {
+          const AC = window.AudioContext || window.webkitAudioContext;
+          if (!AC) { this._toast('Sound is not supported here'); return; }
+          const c = new AC(); S.ctx = c;
+          S.out = c.createGain(); S.out.gain.value = 0.8; S.out.connect(c.destination);
+          const len = c.sampleRate * 4, buf = c.createBuffer(1, len, c.sampleRate), d = buf.getChannelData(0);
+          let last = 0; for (let i = 0; i < len; i++) { const w = Math.random() * 2 - 1; last = (last + 0.02 * w) / 1.02; d[i] = last * 3.2; }
+          const src = c.createBufferSource(); src.buffer = buf; src.loop = true;
+          const lp = c.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 420;
+          S.amb = c.createGain(); S.amb.gain.value = 0;
+          src.connect(lp); lp.connect(S.amb); S.amb.connect(c.destination); src.start();
+          const hum = c.createOscillator(), hg = c.createGain(); hum.frequency.value = 55; hg.gain.value = 0.012; hum.connect(hg); hg.connect(S.amb); hum.start();
+        }
+        S.on = !S.on;
+        if (S.ctx.resume) S.ctx.resume();
+        S.amb.gain.setTargetAtTime(S.on ? 0.22 : 0, S.ctx.currentTime, S.on ? 0.6 : 0.15);
+        this.setState({ sound: S.on });
+        if (S.on) this._toast('Sound on — the stage is live');
+      };
+      this._clapClick = () => {
+        const cur = (this.state && this.state.view) || 'title';
+        if (cur !== 'projects') { this._goProjects(); return; }
+        this._cc = (this._cc || 0) + 1;
+        clearTimeout(this._ck); this._ck = setTimeout(() => { this._cc = 0; }, 1600);
+        this.sfx('clap');
+        if (this._cc >= 3) { this._cc = 0; this.sfx('whoosh'); this.setState({ bloop: true, toast: null }); }
+        else this._toast((3 - this._cc) + ' more…');
+      };
+    }
+    this._goProjects = go('projects');
+    const setTheme = (t) => () => {
+      if (t === theme) return;
+      clearTimeout(this._ft);
+      this.sfx('whoosh');
+      this.setState({ theme: t, flash: true });
+      this._ft = setTimeout(() => this.setState({ flash: false }), 520);
+    };
+    const C = {
+      plate: 'b3e280d68f6dad94cef012499938e4ae', chair: '399f9c3ee1a76871a85b406d09dad451', clap: '5ab7e26dadb9ced653c29d33d36e5296', callsheet: 'a55a1175f41c88f0132516bd24b6c5ba', light: '9075fb5d1e5ed471b96e6fe885f54637', dolly: '6acfe642e5ee0683d5396526acd5eaac', cart: 'e28729fce98758b0fa9c35b3eac2b622', vanity: 'd0d6da19eb20ce3aefb45a5b7f305815', rack: '0c17feb73d1f8aff6d0b0ba6f4650603', spot: '3cb14cc9b984a8aec9f8cc0786331a6d'
+    };
+    const G = {
+      plate: '9bc9267cb2dee78ab30b5f1c04801621', chair: '800c7231addb43656c4b596d5ecc8876', clap: '79e9691e87e07361f4b450e27cbb2d39', callsheet: '6dcf221b432c65374be82ecee2344d75', light: 'e754501aab40ff957efea037a00c577e', dolly: '8fec84f2a36df83f55772ea217734eba', cart: '175ae2626e10343adfb735229b0e0376', vanity: '90c06a609ed8ee7505f575693143282d', rack: 'f1316912317212c9937c8758bbc2cf47', spot: '3a98355a955ed2c08aa38f2adc7adc46'
+    };
+    const src = theme === 'bw' ? G : C;
+    const I = {};
+    Object.keys(src).forEach((k) => { I[k] = '/_blob/' + src[k]; });
+    const B = '/_blob/';
+    const cats = [
+      { label: 'Theatre & Performing Arts', items: [
+        { img: B + '8dae2ae7df29800f0e42bf34f0b1bbf4', alt: 'On stage, lying on a desk in bunny ears', cap: '[Production] — [Role], [Year]', pick: true },
+        { img: B + '4ae9f772d9b38f90dcb4029f98eb1cd0', alt: 'Portrait, winking', cap: '[Production] — [Role], [Year]' },
+        { img: B + '61b2d71a72fee2e787bf3277654e1ba3', alt: 'Movement study with flowing hair', cap: '[Production] — [Role], [Year]', pick: true },
+        { slot: '[Stage photo 4]', cap: '[Production] — [Role], [Year]' },
+        { slot: '[Stage photo 5]', cap: '[Production] — [Role], [Year]' }
+      ]},
+      { label: 'Music & Dance', items: [
+        { img: B + 'c6bfefd39aa889c1fa1a4501e03622ec', alt: 'Playing an upright piano', cap: 'Piano — [Event], [Year]', pick: true },
+        { slot: '[Choir performance]', cap: 'Choir — [Event], [Year]' },
+        { slot: '[Dance performance]', cap: 'Dance — [Event], [Year]' },
+        { slot: '[Instrument]', cap: '[Instrument] — [Event], [Year]' }
+      ]},
+      { label: 'Leadership & Community', items: [
+        { slot: '[Volunteering photo]', cap: 'Volunteering — [Org], [Year]' },
+        { slot: '[School event photo]', cap: 'School event — [Name], [Year]' },
+        { slot: '[Community project photo]', cap: '[Project], [Year]' },
+        { slot: '[Event photo]', cap: '[Event], [Year]' }
+      ]}
+    ];
+    const letter = ['A', 'B', 'C'][cat];
+    const items = cats[cat].items.map((it, i) => ({ img: it.img || '', alt: it.alt || '', empty: !it.img, slot: it.slot || '', cap: it.cap, pick: !!it.pick, no: String(i + 1).padStart(2, '0') + letter }));
+    const navDef = ['about', 'portfolio', 'showreel', 'projects', 'contact'];
+    const sl = st.slate ? scenes[st.slate] : null;
+    const shown = phase !== 'turn';
+    const hv = st.hover && v === 'set' ? scenes[st.hover] : null;
+    const goSet = go('set');
+    return {
+      rootCls: 'root v-' + v + ' t-' + theme + (v === 'set' ? ' is-set' : '') + (st.walking ? ' walking' : '') + (phase === 'turn' ? ' turning' : ''),
+      camCls: 'scene ' + (phase === 'turn' ? 'cam-turn-' + v : 'cam-' + v),
+      I,
+      rootRef: this._rootRef, swayRef: this._swayRef, torchRef: this._torchRef, curRef: this._curRef,
+      onMove: this._onMove, vref: this._vref, vref2: this._vref2,
+      hAbout: this._hov.about, hPortfolio: this._hov.portfolio, hShowreel: this._hov.showreel, hProjects: this._hov.projects, hContact: this._hov.contact, hBackstage: this._hov.backstage, hWardrobe: this._hov.wardrobe, hOff: this._hOff,
+      curCls: 'cur' + (hv ? ' hot' : ''), hoverLabel: hv ? hv[1] + ' — walk over' : '',
+      leaderOn: this.props.intro !== false && !st.leaderDone,
+      skipLeader: () => this.setState({ leaderDone: true }),
+      isTitle: v === 'title', notTitle: v !== 'title', isSet: v === 'set',
+      isAbout: v === 'about' && shown, isPortfolio: v === 'portfolio' && shown, isShowreel: v === 'showreel' && shown, isProjects: v === 'projects' && shown, isContact: v === 'contact' && shown,
+      isBackstage: v === 'backstage' && shown, isWardrobe: v === 'wardrobe' && shown, isAction: v === 'action', isBreathe: v === 'breathe',
+      goSet, goAbout: go('about'), goPortfolio: go('portfolio'), goShowreel: go('showreel'), goProjects: this._goProjects, goContact: go('contact'),
+      goBackstage: go('backstage'), goWardrobe: go('wardrobe'), goAction: go('action'), goBreathe: go('breathe'),
+      cut: () => { this.sfx('voice', 'cut'); goSet(); },
+      clapClick: this._clapClick,
+      bloopOn: !!st.bloop, closeBloop: () => { this.sfx('clap'); this.setState({ bloop: false }); },
+      toastOn: !!st.toast, toastText: st.toast || '',
+      toggleSound: this._toggleSound, sound: !!st.sound, noSound: !st.sound,
+      sndCls: 'sndbtn' + (st.sound ? ' on' : ''), sndLabel: st.sound ? 'Turn sound off' : 'Turn sound on',
+      nav: navDef.map((k) => ({ no: scenes[k][0], label: scenes[k][1], cls: 'navbtn' + (v === k ? ' on' : ''), go: go(k) })),
+      bwCls: 'gbtn' + (theme === 'bw' ? ' on' : ''), coCls: 'gbtn' + (theme === 'color' ? ' on' : ''),
+      setBw: setTheme('bw'), setColor: setTheme('color'), flashOn: !!st.flash,
+      gradeLabel: theme === 'bw' ? 'B&W 400TX' : 'Colour 500T',
+      kelvin: theme === 'bw' ? 'B&W' : '3200K',
+      subOn: !!st.sub, subText: st.sub || '',
+      tabs: cats.map((c, i) => ({ label: c.label, cls: 'tab' + (i === cat ? ' on' : ''), pick: () => this.setState({ cat: i }) })),
+      isReel: pmode === 'reel', isSheet: pmode === 'sheet',
+      reelCls: 'gbtn' + (pmode === 'reel' ? ' on' : ''), sheetCls: 'gbtn' + (pmode === 'sheet' ? ' on' : ''),
+      setReel: () => this.setState({ pmode: 'reel' }), setSheet: () => this.setState({ pmode: 'sheet' }),
+      frames: items.concat(items.map((it) => ({ ...it }))),
+      shots: items.slice(0, 4),
+      slateOn: !!sl, slateName: sl ? sl[1] : '', slateNo: sl ? sl[0] : '', rollLetter: sl ? sl[2] : '', take: st.take || 1,
+      wrap: () => { this.sfx('voice', 'cut'); this.setState({ sent: true }); }, sendLabel: st.sent ? 'That’s a wrap — thank you!' : 'Send message'
+    };
+  }
+}
+</script>
+</body>
+</html>
