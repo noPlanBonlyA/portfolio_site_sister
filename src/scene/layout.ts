@@ -5,7 +5,7 @@ export type SectionKey = 'about' | 'portfolio' | 'showreel' | 'projects' | 'cont
 export type View = 'title' | 'set' | SectionKey | 'action' | 'breathe';
 
 export const SECTION_KEYS: SectionKey[] = ['about', 'portfolio', 'showreel', 'projects', 'contact', 'backstage'];
-export const NAV_KEYS: SectionKey[] = ['about', 'portfolio', 'showreel', 'projects', 'contact'];
+export const NAV_KEYS: SectionKey[] = ['about', 'portfolio', 'showreel', 'projects', 'contact', 'backstage'];
 
 export const FOV = 53.13;
 /** aspect the prototype (and the poses) were authored for */

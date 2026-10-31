@@ -113,7 +113,7 @@ export const portfolio = {
       photos: [
         ph('dance-01', 'Playing an upright piano', true),
         ph('dance-02', 'Dance rehearsal, stretching on the floor'),
-        ph('dance-03', 'Singing with a microphone'),
+        ph('dance-03', 'Singing with a microphone', false, '75% 0%'),
         ph('dance-04', 'Dance performance on stage', true),
         ph('dance-05', 'Playing the guitar'),
         ph('dance-06', 'At the piano in front of a red curtain'),
