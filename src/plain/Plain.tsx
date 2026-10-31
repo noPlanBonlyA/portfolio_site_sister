@@ -1,19 +1,18 @@
 // "Skip 3D": the same content as a plain, scrolling, accessible page.
 import { useEffect } from 'react';
-import { about, backstage, contact, intro, portfolio, projects, scenes, showreel, wardrobe } from '../content';
-import { Heading, PhotoBox } from '../sections/Sections';
+import { about, backstage, contact, intro, portfolio, projects, scenes, showreel } from '../content';
+import { Heading, PhotoBox, ScreenplayLines } from '../sections/Sections';
 
 export default function Plain({ webgl }: { webgl: boolean }) {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-  const pg = about.page;
   return (
     <div className="plain">
       <header className="plain-top">
         <span className="logo">M · Dmitrieva</span>
         <nav aria-label="Sections">
-          {(['about', 'portfolio', 'showreel', 'projects', 'contact', 'backstage', 'wardrobe'] as const).map((k) => (
+          {(['about', 'portfolio', 'showreel', 'projects', 'contact', 'backstage'] as const).map((k) => (
             <a key={k} href={`#p-${k}`}>
               {scenes[k].name}
             </a>
@@ -44,14 +43,7 @@ export default function Plain({ webgl }: { webgl: boolean }) {
           <div className="plain-about">
             <img className="photo" src={about.portrait.src} alt={about.portrait.alt} loading="lazy" />
             <div className="page flat">
-              <p>
-                <b>{pg.slug}</b>
-              </p>
-              <p>{pg.action}</p>
-              <p className="cue">{pg.cue}</p>
-              <p className="paren">{pg.paren}</p>
-              <p className="dlg">{pg.dialogue}</p>
-              <p className="pg-trans">{pg.transition}</p>
+              <ScreenplayLines />
             </div>
           </div>
         </section>
@@ -70,7 +62,6 @@ export default function Plain({ webgl }: { webgl: boolean }) {
                     <div className="pic">
                       <PhotoBox p={p} />
                     </div>
-                    <figcaption className="cap">{p.caption}</figcaption>
                   </figure>
                 ))}
               </div>
@@ -86,7 +77,7 @@ export default function Plain({ webgl }: { webgl: boolean }) {
             {showreel.youtubeId ? (
               <iframe src={`https://www.youtube-nocookie.com/embed/${showreel.youtubeId}`} title={showreel.title} loading="lazy" allowFullScreen />
             ) : (
-              <video src="/video/hero-color.mp4" poster="/video/hero-poster.jpg" controls muted playsInline preload="none" aria-label={showreel.title} />
+              <video src={showreel.video} poster={showreel.poster} controls playsInline preload="none" aria-label={showreel.title} />
             )}
           </div>
         </section>
@@ -103,16 +94,6 @@ export default function Plain({ webgl }: { webgl: boolean }) {
               {projects.featured.cta}
             </a>
           </p>
-          <p className="eyebrow soon">{projects.comingSoonLabel}</p>
-          <div className="tickets">
-            {projects.tickets.map((t, i) => (
-              <div className="ticket" key={t.title}>
-                <span className="eyebrow sm">Admit one · {String(i + 1).padStart(2, '0')}</span>
-                <h3 className="ticket-title">{t.title}</h3>
-                <p className="body ph sm">{t.text}</p>
-              </div>
-            ))}
-          </div>
         </section>
 
         <section id="p-contact" className="plain-sec">
@@ -150,30 +131,11 @@ export default function Plain({ webgl }: { webgl: boolean }) {
                 <div className="pic">
                   <img className="photo" src={p.src} alt={p.alt} loading="lazy" />
                 </div>
-                <figcaption className="cap">{p.caption}</figcaption>
               </figure>
             ))}
           </div>
         </section>
 
-        <section id="p-wardrobe" className="plain-sec">
-          <p className="eyebrow">
-            <b>Scene 07</b> · {scenes.wardrobe.name}
-          </p>
-          <Heading parts={wardrobe.heading} />
-          <div className="plain-grid">
-            {wardrobe.looks.map((l, i) => (
-              <figure className="shot" key={i}>
-                <div className="pic">
-                  <img className="photo" src={l.photo} alt={`${l.role} — ${l.production}`} loading="lazy" />
-                </div>
-                <figcaption className="cap">
-                  {l.role} · Look {String(i + 1).padStart(2, '0')} · {l.production}, {l.year}
-                </figcaption>
-              </figure>
-            ))}
-          </div>
-        </section>
       </main>
       <footer className="plain-foot eyebrow">© Mariia Dmitrieva · Saint Petersburg</footer>
     </div>

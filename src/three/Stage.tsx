@@ -29,7 +29,7 @@ function Backdrop() {
   const matRef = useRef<MeshBasicMaterial>(null);
   const video = useMemo(() => {
     const v = document.createElement('video');
-    v.src = '/video/hero-color.mp4';
+    v.src = '/video/hero.mp4';
     v.muted = true;
     v.loop = true;
     v.playsInline = true;

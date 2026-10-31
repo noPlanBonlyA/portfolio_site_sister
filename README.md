@@ -22,3 +22,14 @@ Open TODOs (all in `content.ts`):
 - `src/three/` — WebGL stage, props, camera rig, post-processing (B&W/colour grade, grain, bloom)
 - `src/sections/` — the seven sections + Action / Breathe / blooper reel
 - `src/plain/` — "Skip 3D" scrolling version (`#plain`, also used when WebGL is unavailable)
+
+## Adding photos
+All photos share one grade (darker, warmer, soft vignette) so they sit together. To add one:
+
+```bash
+ffmpeg -i input.jpg -vf "scale='if(gt(iw,ih),min(1600,iw),-2)':'if(gt(iw,ih),-2,min(1600,ih))',eq=contrast=1.1:brightness=-0.04:saturation=0.68:gamma=0.94,colorbalance=rs=0.04:gs=0.01:bs=-0.03:rh=0.03:bh=-0.04,curves=master='0/0.025 0.25/0.2 0.75/0.76 1/0.92',vignette=angle=PI/4.6" /tmp/out.png
+cwebp -q 80 /tmp/out.png -o public/photos/<name>.webp
+```
+
+Very dark originals (e.g. night skies) need a lighter touch: raise `brightness`/`gamma`.
+Then add the file to the right list in `src/content.ts`.

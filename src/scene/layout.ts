@@ -1,10 +1,10 @@
 // Scene layout in Three.js units, derived from reference/scene.json
 // (three = (x/100, (300 - y)/100, z/100); floor at y = 0; props face +z).
 
-export type SectionKey = 'about' | 'portfolio' | 'showreel' | 'projects' | 'contact' | 'backstage' | 'wardrobe';
+export type SectionKey = 'about' | 'portfolio' | 'showreel' | 'projects' | 'contact' | 'backstage';
 export type View = 'title' | 'set' | SectionKey | 'action' | 'breathe';
 
-export const SECTION_KEYS: SectionKey[] = ['about', 'portfolio', 'showreel', 'projects', 'contact', 'backstage', 'wardrobe'];
+export const SECTION_KEYS: SectionKey[] = ['about', 'portfolio', 'showreel', 'projects', 'contact', 'backstage'];
 export const NAV_KEYS: SectionKey[] = ['about', 'portfolio', 'showreel', 'projects', 'contact'];
 
 export const FOV = 53.13;
@@ -28,7 +28,6 @@ export const POSES: Record<View, Pose> = {
   projects: { pos: [1.5, 3, 0], yaw: -4, pitch: -8 },
   portfolio: { pos: [-4.76, 3.6, 5], yaw: 0, pitch: -8 },
   backstage: { pos: [-8.63, 4.6, 2], yaw: 0, pitch: 0 },
-  wardrobe: { pos: [-2.65, 3, -10], yaw: 0, pitch: 0 },
   action: { pos: [0.09, 12, -3], yaw: 0, pitch: 0 },
   breathe: { pos: [0.09, 10.5, -13], yaw: 0, pitch: 0 },
 };
@@ -41,7 +40,6 @@ export const TURN_YAW: Record<SectionKey, number> = {
   projects: 4.1,
   portfolio: 25.5,
   backstage: 29.8,
-  wardrobe: 11.6,
 };
 
 export interface PropDef {
@@ -64,7 +62,7 @@ export interface PropDef {
 const L = (x: number, y: number, z: number): [number, number, number] => [x / 100, (300 - y) / 100, z / 100];
 
 export const PROPS: PropDef[] = [
-  { id: 'rack', image: 'rack', section: 'wardrobe', base: [-5.95, 0, -17], size: [4.12, 5.6], label: { text: '07 · Wardrobe', anchor: L(-595, -300, -1700), font: 0.48 }, pool: [8, 6], shadow: [5, 2], name: 'Wardrobe — the costume rack' },
+  { id: 'rack', image: 'rack', base: [-5.95, 0, -17], size: [4.12, 5.6], shadow: [5, 2] },
   { id: 'spot', image: 'spot', base: [11.305, 0, -18], size: [4.03, 6.4], shadow: [4.8, 2] },
   { id: 'light', image: 'light', base: [-9.52, 0, -13], size: [2.66, 6.4], shadow: [3.6, 1.8] },
   { id: 'dolly', image: 'dolly', section: 'showreel', base: [0.885, 0, -9], size: [5.45, 6], label: { text: '03 · Showreel', anchor: L(89, -330, -900), font: 0.4 }, pool: [10, 7], shadow: [6.4, 2.2], name: 'Showreel — the camera dolly' },

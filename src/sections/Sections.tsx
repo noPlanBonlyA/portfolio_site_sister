@@ -1,10 +1,10 @@
 import { type FormEvent, type ReactNode, useEffect, useRef, useState } from 'react';
-import { about, action, backstage, bloopers, breathe, contact, portfolio, projects, scenes, showreel, wardrobe, type Photo } from '../content';
+import { about, action, backstage, bloopers, breathe, contact, portfolio, projects, scenes, showreel, type Photo } from '../content';
 import { go } from '../nav';
 import { reducedMotion, useStore } from '../store';
 import { sfx } from '../sound';
 import { breathLevel, fx } from '../three/fx';
-import { Back, IconArrowRight, IconDownload, IconHanger, IconPlay, useQuietFocus } from '../ui/icons';
+import { Back, IconArrowRight, IconDownload, IconPlay, useQuietFocus } from '../ui/icons';
 import type { SectionKey } from '../scene/layout';
 
 /** "Theatre *meets* psychology" — odd-indexed parts are italic */
@@ -34,9 +34,27 @@ export function PhotoBox({ p, className = '' }: { p: Photo; className?: string }
   return p.src ? <img className={`photo ${className}`} src={p.src} alt={p.alt} loading="lazy" decoding="async" /> : <div className="slot">{p.slot}</div>;
 }
 
+/** the screenplay page from content.ts → about.page */
+export function ScreenplayLines() {
+  return (
+    <>
+      {about.page.map((l, i) =>
+        l.k === 'slug' ? (
+          <p key={i}>
+            <b>{l.t}</b>
+          </p>
+        ) : (
+          <p key={i} className={{ action: 'pg-action', cue: 'cue', paren: 'paren', dialogue: 'dlg', trans: 'pg-trans' }[l.k]}>
+            {l.t}
+          </p>
+        ),
+      )}
+    </>
+  );
+}
+
 // ── 01 About ────────────────────────────────────────────────────────────────
 export function About() {
-  const pg = about.page;
   return (
     <Panel side="r" label="About me">
       <Back />
@@ -47,15 +65,8 @@ export function About() {
           <div className="ptape" />
           <img className="photo" src={about.portrait.src} alt={about.portrait.alt} />
         </div>
-        <p className="pg-no">{pg.number}</p>
-        <p>
-          <b>{pg.slug}</b>
-        </p>
-        <p className="pg-action">{pg.action}</p>
-        <p className="cue">{pg.cue}</p>
-        <p className="paren">{pg.paren}</p>
-        <p className="dlg">{pg.dialogue}</p>
-        <p className="pg-trans">{pg.transition}</p>
+        <p className="pg-no">1.</p>
+        <ScreenplayLines />
       </div>
       <div className="row">
         <button className="btn" onClick={() => go('showreel')}>
@@ -72,8 +83,7 @@ export function Portfolio() {
   const [cat, setCat] = useState(0);
   const [mode, setMode] = useState<'reel' | 'sheet'>('reel');
   const c = portfolio.categories[cat];
-  const letter = String.fromCharCode(65 + cat);
-  const items = c.photos.map((p, i) => ({ ...p, no: String(i + 1).padStart(2, '0') + letter }));
+  const items = c.photos.map((p, i) => ({ ...p, no: `${cat}-${i}` }));
   return (
     <Panel side="full" label="Portfolio">
       <div className="pf-head">
@@ -109,10 +119,6 @@ export function Portfolio() {
                 <div className="pic">
                   <PhotoBox p={p} />
                 </div>
-                <figcaption className="cap">
-                  <b>{p.no}</b>
-                  {p.caption}
-                </figcaption>
               </figure>
             ))}
           </div>
@@ -125,10 +131,6 @@ export function Portfolio() {
                 <PhotoBox p={p} />
               </div>
               {p.best && <div className="circle" aria-label="best take" />}
-              <figcaption className="cap">
-                <b>{p.no}</b>
-                {p.caption}
-              </figcaption>
             </figure>
           ))}
         </div>
@@ -202,12 +204,8 @@ export function Showreel() {
           {showreel.youtubeId ? (
             <LiteYouTube id={showreel.youtubeId} title={showreel.title} />
           ) : (
-            <>
-              <video className="photo-v" src={grade === 'bw' ? '/video/hero-bw.mp4' : '/video/hero-color.mp4'} poster="/video/hero-poster.jpg" autoPlay muted loop playsInline aria-label={showreel.title} />
-              <div className="vf-note">{showreel.placeholderNote}</div>
-            </>
+            <video src={showreel.video} poster={showreel.poster} controls playsInline preload="metadata" aria-label={showreel.title} />
           )}
-          <div className="vf-centre" aria-hidden="true" />
         </div>
         <div className="vfline bl">
           TC <Timecode />
@@ -249,23 +247,6 @@ export function Projects() {
             </a>
           </div>
         </div>
-      </div>
-      <p className="eyebrow soon">{projects.comingSoonLabel}</p>
-      <div className="tickets">
-        {projects.tickets.map((t, i) => (
-          <div className="ticket" key={t.title}>
-            <span className="eyebrow sm">Admit one · {String(i + 1).padStart(2, '0')}</span>
-            <h3 className="ticket-title">{t.title}</h3>
-            <p className="body ph sm">{t.text}</p>
-            {t.breathe && (
-              <div>
-                <button className="btn btn-ghost btn-sm" onClick={() => go('breathe')}>
-                  {t.cta}
-                </button>
-              </div>
-            )}
-          </div>
-        ))}
       </div>
       <p className="eyebrow psst">{projects.psst}</p>
     </Panel>
@@ -379,9 +360,11 @@ export function Backstage() {
       </div>
       <div className="mcap">
         <Eyebrow k="backstage" text={backstage.eyebrow} />
-        <p className="body ph sm" aria-live="polite">
-          {backstage.photos[i].caption}
-        </p>
+        {backstage.photos[i].caption && (
+          <p className="body ph sm" aria-live="polite">
+            {backstage.photos[i].caption}
+          </p>
+        )}
         <div className="mdots">
           {backstage.photos.map((_, k) => (
             <button key={k} className={k === i ? 'on' : ''} aria-label={`Photo ${k + 1}`} aria-pressed={k === i} onClick={() => setI(k)} />
@@ -390,32 +373,6 @@ export function Backstage() {
         <Back />
       </div>
     </section>
-  );
-}
-
-// ── 07 Wardrobe ─────────────────────────────────────────────────────────────
-export function Wardrobe() {
-  return (
-    <Panel side="r" label="Wardrobe">
-      <Back />
-      <Eyebrow k="wardrobe" />
-      <Heading parts={wardrobe.heading} />
-      <p className="body intro">{wardrobe.intro}</p>
-      <ul className="hangers">
-        {wardrobe.looks.map((l, i) => (
-          <li className="hanger" key={i} tabIndex={0}>
-            <IconHanger />
-            <div>
-              <div className="rn">{l.role}</div>
-              <p className="eyebrow">
-                Look {String(i + 1).padStart(2, '0')} · {l.production}, {l.year}
-              </p>
-            </div>
-            <img className="pv photo" src={l.photo} alt={`${l.role} — ${l.production}`} loading="lazy" />
-          </li>
-        ))}
-      </ul>
-    </Panel>
   );
 }
 
@@ -530,7 +487,6 @@ export function Sections() {
       {panel && view === 'projects' && <Projects />}
       {panel && view === 'contact' && <Contacts />}
       {panel && view === 'backstage' && <Backstage />}
-      {panel && view === 'wardrobe' && <Wardrobe />}
       {view === 'action' && panel && <ActionMode />}
       {view === 'breathe' && panel && <Breathe />}
       {bloop && <Bloopers />}

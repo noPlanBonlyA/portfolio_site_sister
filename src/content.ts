@@ -8,7 +8,6 @@ export const P = {
   wink: '/photos/portrait-wink.jpg',
   hair: '/photos/portrait-hair-motion.jpg',
   bunny: '/photos/stage-bunny-desk.jpg',
-  piano: '/photos/music-piano.jpg',
 };
 
 export interface Photo {
@@ -17,7 +16,7 @@ export interface Photo {
   alt: string;
   /** placeholder label when there is no src yet */
   slot?: string;
-  caption: string;
+  caption?: string;
   /** circled in grease pencil on the contact sheet */
   best?: boolean;
 }
@@ -58,7 +57,6 @@ export const scenes = {
   projects: { no: '04', name: 'Projects', roll: 'D', prop: 'the clapperboard' },
   contact: { no: '05', name: 'Contacts', roll: 'E', prop: 'the call sheet' },
   backstage: { no: '06', name: 'Backstage', roll: 'F', prop: 'the dressing mirror' },
-  wardrobe: { no: '07', name: 'Wardrobe', roll: 'G', prop: 'the costume rack' },
 } as const;
 
 export const slate = { prod: 'Prod. Mariia Dmitrieva' };
@@ -74,50 +72,60 @@ export const subtitles = {
 export const about = {
   heading: ['Theatre ', 'meets', ' psychology'],
   portrait: { src: P.wink, alt: 'Portrait of Mariia Dmitrieva' },
-  page: {
-    number: '1.',
-    slug: 'INT. SOUNDSTAGE 1 — NIGHT',
-    action: 'The marquee lights hum. MARIIA DMITRIEVA, actress & creator, walks onto her mark.',
-    cue: 'Mariia (V.O.)',
-    paren: '(to camera)',
-    dialogue: '[Short philosophy text — Mariia will send. Written as her monologue.]',
-    transition: 'CUT TO:',
-  },
+  /** the screenplay page, line by line: slug / action / cue / paren / dialogue / transition */
+  page: [
+    { k: 'slug', t: 'INT. SOUNDSTAGE 1 — NIGHT' },
+    { k: 'action', t: '(The marquee lights hum. A starry sky projection flickers in the background. MARIIA DMITRIEVA, an actress and creator, walks onto her mark.)' },
+    { k: 'cue', t: 'MARIIA' },
+    { k: 'paren', t: '(looking up at the projection)' },
+    { k: 'dialogue', t: 'People say everything happens for a reason. I look at the stars, and I know it’s true. Even the fear. Even the pain. Even the rejection. It’s all just steering you exactly where you belong.' },
+    { k: 'action', t: '(She looks directly into the camera — at the audience.)' },
+    { k: 'dialogue', t: 'And I am ready.' },
+    { k: 'trans', t: 'CUT TO:' },
+  ] as { k: 'slug' | 'action' | 'cue' | 'paren' | 'dialogue' | 'trans'; t: string }[],
   cta: 'Watch video card',
 };
 
 // ── 02 · Portfolio ───────────────────────────────────────────────────────────
+// Photos are graded with one shared look (see README → "Adding photos").
+const ph = (name: string, alt: string, best = false): Photo => ({ src: `/photos/${name}.webp`, alt, best });
+
 export const portfolio = {
   heading: ['Frames from ', 'the stage'],
   modes: { reel: 'Film reel', sheet: 'Contact sheet' },
-  footnote: 'Hover pauses the reel · caption: production — role, year',
+  footnote: 'Hover pauses the reel',
   categories: [
     {
       label: 'Theatre & Performing Arts',
       photos: [
-        { src: P.bunny, alt: 'On stage, lying on a desk in bunny ears', caption: '[Production] — [Role], [Year]', best: true },
-        { src: P.wink, alt: 'Portrait, winking', caption: '[Production] — [Role], [Year]' },
-        { src: P.hair, alt: 'Movement study with flowing hair', caption: '[Production] — [Role], [Year]', best: true },
-        { slot: '[Stage photo 4]', alt: '', caption: '[Production] — [Role], [Year]' },
-        { slot: '[Stage photo 5]', alt: '', caption: '[Production] — [Role], [Year]' },
+        ph('theatre-01', 'Solo on stage in a green costume and orange hat', true),
+        ph('theatre-02', 'The cast lying in a circle, seen from above'),
+        ph('theatre-03', 'A scene with wooden boxes in front of the curtain'),
+        ph('theatre-04', 'Ensemble scene in black costumes', true),
+        ph('theatre-05', 'Cast photo with the director'),
+        ph('theatre-06', 'Curtain call'),
       ],
     },
     {
       label: 'Music & Dance',
       photos: [
-        { src: P.piano, alt: 'Playing an upright piano', caption: 'Piano — [Event], [Year]', best: true },
-        { slot: '[Choir performance]', alt: '', caption: 'Choir — [Event], [Year]' },
-        { slot: '[Dance performance]', alt: '', caption: 'Dance — [Event], [Year]' },
-        { slot: '[Instrument]', alt: '', caption: '[Instrument] — [Event], [Year]' },
+        ph('dance-01', 'Playing an upright piano', true),
+        ph('dance-02', 'Dance rehearsal, stretching on the floor'),
+        ph('dance-03', 'Singing with a microphone'),
+        ph('dance-04', 'Dance performance on stage', true),
+        ph('dance-05', 'Playing the guitar'),
+        ph('dance-06', 'At the piano in front of a red curtain'),
       ],
     },
     {
       label: 'Leadership & Community',
       photos: [
-        { slot: '[Volunteering photo]', alt: '', caption: 'Volunteering — [Org], [Year]' },
-        { slot: '[School event photo]', alt: '', caption: 'School event — [Name], [Year]' },
-        { slot: '[Community project photo]', alt: '', caption: '[Project], [Year]' },
-        { slot: '[Event photo]', alt: '', caption: '[Event], [Year]' },
+        ph('community-01', 'Graduation ceremony', true),
+        ph('community-02', 'Volunteering at a martial-arts tournament'),
+        ph('community-03', 'Hosting a school event on stage'),
+        ph('community-04', 'School assembly in the hall'),
+        ph('community-05', 'At an exhibition', true),
+        ph('community-06', 'Hosting an event with a microphone'),
       ],
     },
   ] as { label: string; photos: Photo[] }[],
@@ -126,10 +134,11 @@ export const portfolio = {
 // ── 03 · Showreel ────────────────────────────────────────────────────────────
 export const showreel = {
   eyebrow: 'Video business card',
-  // TODO: put the real YouTube video id here (e.g. 'dQw4w9WgXcQ'). Empty = hero clip placeholder.
+  // Optional: a YouTube id (e.g. 'dQw4w9WgXcQ') to play from YouTube instead of the file below.
   youtubeId: '',
+  video: '/video/card.mp4',
+  poster: '/video/card-poster.jpg',
   title: 'Mariia Dmitrieva — video business card',
-  placeholderNote: '[YouTube embed — video business card · placeholder clip]',
   play: 'Play video card',
   readout: { rec: 'Rec · A-cam', specs: 'ISO 800 · 24 fps · 180°', batt: 'Batt ▮▮▮▯ · 35mm · f/2.0' },
 };
@@ -144,24 +153,10 @@ export const projects = {
     label: 'Featured project',
     text: '[1–2 sentences about the idea of the project]',
     cta: 'Explore project',
-    // TODO: real HEART site URL
+    // TODO: link to the HEART project site once it exists
     url: '#',
     poster: P.hair,
   },
-  comingSoonLabel: 'Coming soon',
-  tickets: [
-    {
-      title: 'Releasing Psychological and Physical Tension Before Going on Stage',
-      text: '[A couple of sentences — coming]',
-      cta: 'Try it on stage — 1 minute',
-      breathe: true,
-    },
-    {
-      title: 'Theater as a Way to Develop Communication Among Teenagers',
-      text: '[A couple of sentences — coming]',
-      breathe: false,
-    },
-  ],
   psst: 'Psst — clap the slate on the left three times',
   clapsLeft: (n: number) => `${n} more…`,
 };
@@ -197,22 +192,12 @@ export const backstage = {
   eyebrow: 'Backstage — behind the curtain',
   note: 'Break a leg!',
   photos: [
-    { src: P.wink, alt: 'Backstage photo', caption: '[Caption for this behind-the-scenes photo]' },
-    { src: P.piano, alt: 'Backstage photo', caption: '[Caption for this behind-the-scenes photo]' },
-    { src: P.hair, alt: 'Backstage photo', caption: '[Caption for this behind-the-scenes photo]' },
-    { src: P.bunny, alt: 'Backstage photo', caption: '[Caption for this behind-the-scenes photo]' },
-  ],
-};
-
-// ── 07 · Wardrobe ────────────────────────────────────────────────────────────
-export const wardrobe = {
-  heading: ['Roles I’ve ', 'worn'],
-  intro: 'Every costume on the rack is a character. Hover a hanger to meet her.',
-  looks: [
-    { role: '[Role]', production: '[Production]', year: '[Year]', photo: P.bunny },
-    { role: '[Role]', production: '[Production]', year: '[Year]', photo: P.hair },
-    { role: '[Role]', production: '[Production]', year: '[Year]', photo: P.wink },
-    { role: '[Role]', production: '[Production]', year: '[Year]', photo: P.piano },
+    { src: '/photos/backstage-01.webp', alt: 'Mirror selfie by a string of lights', caption: '' },
+    { src: '/photos/backstage-02.webp', alt: 'Wind in her hair on the Neva', caption: '' },
+    { src: '/photos/backstage-03.webp', alt: 'A leap under a street lamp at night', caption: '' },
+    { src: '/photos/backstage-04.webp', alt: 'Silhouette reaching for the stars', caption: '' },
+    { src: '/photos/backstage-05.webp', alt: 'Cosy in a hoodie with her dog', caption: '' },
+    { src: '/photos/backstage-06.webp', alt: 'Silhouette against a sunset window', caption: '' },
   ],
 };
 
