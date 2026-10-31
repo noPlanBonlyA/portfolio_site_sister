@@ -4,6 +4,7 @@ import { go } from '../nav';
 import { reducedMotion, useStore } from '../store';
 import { sfx } from '../sound';
 import { breathLevel, fx } from '../three/fx';
+import { StreamVideo } from '../ui/StreamVideo';
 import { Back, IconArrowRight, IconDownload, IconPlay, useQuietFocus } from '../ui/icons';
 import type { SectionKey } from '../scene/layout';
 
@@ -31,7 +32,11 @@ function Panel({ side, label, children, className = '' }: { side: 'r' | 'l' | 'f
 }
 
 export function PhotoBox({ p, className = '' }: { p: Photo; className?: string }) {
-  return p.src ? <img className={`photo ${className}`} src={p.src} alt={p.alt} loading="lazy" decoding="async" /> : <div className="slot">{p.slot}</div>;
+  return p.src ? (
+    <img className={`photo ${className}`} src={p.src} alt={p.alt} loading="lazy" decoding="async" style={p.focus ? { objectPosition: p.focus } : undefined} />
+  ) : (
+    <div className="slot">{p.slot}</div>
+  );
 }
 
 /** the screenplay page from content.ts → about.page */
@@ -204,7 +209,7 @@ export function Showreel() {
           {showreel.youtubeId ? (
             <LiteYouTube id={showreel.youtubeId} title={showreel.title} />
           ) : (
-            <video src={showreel.video} poster={showreel.poster} controls playsInline preload="metadata" aria-label={showreel.title} />
+            <StreamVideo hls={showreel.hls} mp4={showreel.video} poster={showreel.poster} title={showreel.title} />
           )}
         </div>
         <div className="vfline bl">
@@ -239,7 +244,10 @@ export function Projects() {
         </div>
         <div className="feature-text">
           <p className="eyebrow">{f.label}</p>
-          <p className="body ph">{f.text}</p>
+          <h3 className="feature-title">
+            {f.title} <em>({f.subtitle})</em>
+          </h3>
+          <p className="body">{f.text}</p>
           <div>
             <a className="btn" href={f.url} target={f.url.startsWith('http') ? '_blank' : undefined} rel="noopener">
               {f.cta}
@@ -247,6 +255,23 @@ export function Projects() {
             </a>
           </div>
         </div>
+      </div>
+      <p className="eyebrow soon">{projects.moreLabel}</p>
+      <div className="tickets">
+        {projects.more.map((t, i) => (
+          <div className="ticket" key={t.title}>
+            <span className="eyebrow sm">Admit one · {String(i + 2).padStart(2, '0')}</span>
+            <h3 className="ticket-title">{t.title}</h3>
+            <p className="body sm">{t.text}</p>
+            {t.breathe && t.cta && (
+              <div>
+                <button className="btn btn-ghost btn-sm" onClick={() => go('breathe')}>
+                  {t.cta}
+                </button>
+              </div>
+            )}
+          </div>
+        ))}
       </div>
       <p className="eyebrow psst">{projects.psst}</p>
     </Panel>

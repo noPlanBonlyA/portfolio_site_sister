@@ -19,6 +19,8 @@ export interface Photo {
   caption?: string;
   /** circled in grease pencil on the contact sheet */
   best?: boolean;
+  /** CSS object-position when the frame crops the photo, e.g. 'center 15%' to keep a face in view */
+  focus?: string;
 }
 
 export const site = {
@@ -88,7 +90,7 @@ export const about = {
 
 // ── 02 · Portfolio ───────────────────────────────────────────────────────────
 // Photos are graded with one shared look (see README → "Adding photos").
-const ph = (name: string, alt: string, best = false): Photo => ({ src: `/photos/${name}.webp`, alt, best });
+const ph = (name: string, alt: string, best = false, focus?: string): Photo => ({ src: `/photos/${name}.webp`, alt, best, focus });
 
 export const portfolio = {
   heading: ['Frames from ', 'the stage'],
@@ -121,7 +123,7 @@ export const portfolio = {
       label: 'Leadership & Community',
       photos: [
         ph('community-01', 'Graduation ceremony', true),
-        ph('community-02', 'Volunteering at a martial-arts tournament'),
+        ph('community-02', 'Volunteering at a martial-arts tournament', false, 'center 12%'),
         ph('community-03', 'Hosting a school event on stage'),
         ph('community-04', 'School assembly in the hall'),
         ph('community-05', 'At an exhibition', true),
@@ -136,6 +138,8 @@ export const showreel = {
   eyebrow: 'Video business card',
   // Optional: a YouTube id (e.g. 'dQw4w9WgXcQ') to play from YouTube instead of the file below.
   youtubeId: '',
+  /** adaptive stream (360p–720p, follows the connection) + MP4 fallback */
+  hls: '/video/card/master.m3u8',
   video: '/video/card.mp4',
   poster: '/video/card-poster.jpg',
   title: 'Mariia Dmitrieva — video business card',
@@ -149,14 +153,29 @@ export const projects = {
   featured: {
     title: 'HEART',
     kicker: 'A project by Mariia Dmitrieva',
-    billing: '[Billing block — project team credits]',
+    billing: 'Psychological Immersive Theatre',
     label: 'Featured project',
-    text: '[1–2 sentences about the idea of the project]',
+    subtitle: 'Psychological Immersive Theatre',
+    text: 'A psychological immersive theatre and digital ecosystem where art meets healing. A safe space to take off the mask, face your fears, and finally breathe.',
     cta: 'Explore project',
     // TODO: link to the HEART project site once it exists
     url: '#',
     poster: P.hair,
   },
+  moreLabel: 'Research & workshops',
+  more: [
+    {
+      title: 'Releasing Psychological and Physical Tension Before Going on Stage',
+      text: 'An applied research project blending acting techniques with psychology. Designed and led interactive workshops for 40+ teenagers to help them manage performance anxiety and build self-confidence.',
+      cta: 'Try it on stage — 1 minute',
+      breathe: true,
+    },
+    {
+      title: 'Theater as a Way to Develop Communication Among Teenagers',
+      text: 'A comprehensive research project uniting a newly merged class through theatrical activities. Facilitated interactive workshops for 30+ teenagers to build trust and enhance communication skills.',
+      breathe: false,
+    },
+  ] as { title: string; text: string; cta?: string; breathe: boolean }[],
   psst: 'Psst — clap the slate on the left three times',
   clapsLeft: (n: number) => `${n} more…`,
 };
@@ -166,8 +185,8 @@ export const contact = {
   heading: ['End ', 'credits'],
   rows: [
     { label: 'Email', value: 'mariya171207@gmail.com', href: 'mailto:mariya171207@gmail.com' },
-    { label: 'Instagram', value: '[@handle]', href: '#' }, // TODO: https://instagram.com/<handle>
-    { label: 'Telegram', value: '[@handle]', href: '#' }, // TODO: https://t.me/<handle>
+    { label: 'Instagram', value: '@ma7yme', href: 'https://instagram.com/ma7yme' },
+    { label: 'Telegram', value: '@marxwaq', href: 'https://t.me/marxwaq' },
     { label: 'Based in', value: 'Saint Petersburg' },
   ],
   cv: { label: 'Download CV', href: '#' }, // TODO: put the PDF in /public/cv.pdf and set href: '/cv.pdf'

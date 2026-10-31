@@ -2,6 +2,7 @@
 import { useEffect } from 'react';
 import { about, backstage, contact, intro, portfolio, projects, scenes, showreel } from '../content';
 import { Heading, PhotoBox, ScreenplayLines } from '../sections/Sections';
+import { StreamVideo } from '../ui/StreamVideo';
 
 export default function Plain({ webgl }: { webgl: boolean }) {
   useEffect(() => {
@@ -77,7 +78,7 @@ export default function Plain({ webgl }: { webgl: boolean }) {
             {showreel.youtubeId ? (
               <iframe src={`https://www.youtube-nocookie.com/embed/${showreel.youtubeId}`} title={showreel.title} loading="lazy" allowFullScreen />
             ) : (
-              <video src={showreel.video} poster={showreel.poster} controls playsInline preload="none" aria-label={showreel.title} />
+              <StreamVideo hls={showreel.hls} mp4={showreel.video} poster={showreel.poster} title={showreel.title} />
             )}
           </div>
         </section>
@@ -87,13 +88,23 @@ export default function Plain({ webgl }: { webgl: boolean }) {
             <b>Scene 04</b> · {projects.eyebrow}
           </p>
           <h2 className="h2">{projects.featured.title}</h2>
-          <p className="body">{projects.featured.kicker}</p>
-          <p className="body ph">{projects.featured.text}</p>
+          <p className="body">{projects.featured.subtitle}</p>
+          <p className="body">{projects.featured.text}</p>
           <p>
             <a className="btn" href={projects.featured.url}>
               {projects.featured.cta}
             </a>
           </p>
+          <p className="eyebrow soon">{projects.moreLabel}</p>
+          <div className="tickets">
+            {projects.more.map((t, i) => (
+              <div className="ticket" key={t.title}>
+                <span className="eyebrow sm">Admit one · {String(i + 2).padStart(2, '0')}</span>
+                <h3 className="ticket-title">{t.title}</h3>
+                <p className="body sm">{t.text}</p>
+              </div>
+            ))}
+          </div>
         </section>
 
         <section id="p-contact" className="plain-sec">
