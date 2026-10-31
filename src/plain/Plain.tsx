@@ -91,7 +91,7 @@ export default function Plain({ webgl }: { webgl: boolean }) {
           <p className="body">{projects.featured.subtitle}</p>
           <p className="body">{projects.featured.text}</p>
           <p>
-            <a className="btn" href={projects.featured.url}>
+            <a className="btn" href={projects.featured.url} target="_blank" rel="noopener">
               {projects.featured.cta}
             </a>
           </p>

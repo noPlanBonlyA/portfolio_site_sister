@@ -158,8 +158,7 @@ export const projects = {
     subtitle: 'Psychological Immersive Theatre',
     text: 'A psychological immersive theatre and digital ecosystem where art meets healing. A safe space to take off the mask, face your fears, and finally breathe.',
     cta: 'Explore project',
-    // TODO: link to the HEART project site once it exists
-    url: '#',
+    url: 'https://heart-project-delta.vercel.app/',
     poster: P.hair,
   },
   moreLabel: 'Research & workshops',
